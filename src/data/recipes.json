@@ -1,0 +1,68 @@
+{
+  "recipes": [
+    {
+      "id": "cinammonRolls",
+      "title": "Cinnamon Rolls",
+      "tag": "dessert",
+      "instructions": "Do this",
+      "ingredients": "Lots of ingredients",
+      "image": "cinnamon-rolls.png"
+    },
+    {
+      "id": "featherRolls",
+      "title": "Feather Rolls",
+      "tag": "desserts",
+      "ingredients": "2 packets yeast; 1 cup warm water; 1 tsp sugar; (Mix together and set aside to let rise); 1 tsp salt; ½ cup sugar; 3 eggs (slightly beaten); 4 TBLSP butter (melted); 1 cup warm water; 4-5 cups flour",
+      "instructions": "Dissolve yeast and 1 tsp sugar in warm water. Let stand 15-20 minutes. Mix together all other ingredients. Except flour and add the yeast mixture.  Knead in flour and place in greased bowl. Let rise. Punch down and let rise again. Make into cinnamon rolls or this recipe will make 2 loaves.",
+      "image": "feather-rolls.png"
+    },
+    {
+      "id": "homemadeSoup",
+      "title": "Homemade Soup",
+      "tag": "side-dishes; main-dishes",
+      "ingredients": "ground hamburger: 2 lbs; uncooked rice: 2/3 cup; chopped celery: 1 cup; onion: 1/2 cup ; chopped garlic: 3 cloves; frozen carrots: 1 cup; frozen peas: 1 cup; frozen corn: 1 cup; green beans: 1 cup",
+      "instructions": "Place meat in a large cooking kettle.; Cover with water and let cook while preparing the other ingredients.; Add 2/3 cup uncooked rice to the meat mixture.; Add the vegetables to the meat and let simmer until cooked through.; Then add one large can of diced tomatoes, and top with chopped cabbage.; Add salt and pepper to taste.; Add enough water to the kettle to keep the soup moist and consistency to your approval.",
+      "image": "homemade-soup.png"
+    },
+    {
+      "id": "crescentChickenSquares",
+      "title": "Crescent Chicken Squares",
+      "tag": "main-dishes",
+      "ingredients": "Cream cheese (softened): 3 oz.; Butter: 2 Tablespoons; Cooked chicken, cubed (can use canned chicken): 2 cups; salt: 1/2 tsp; pepper: 1/8 tsp; milk: 2 tablespoons; Pimento (chopped): 1 tablespoon",
+      "instructions": "Blend softened cream cheese and butter until smooth.; Mix with cream cheese and butter; Form rectangles with crescent rolls (2) per rectangle.  Place 1 to 2 Tablespoons of mixture in center of roll.  Fold up corners of roll to the center.; Drizzle 1 Tablespoon melted butter over squares and sprinkle with bread crumbs.; Bake in greased 9 x 3 pan in a 375 degree Fahrenheit oven until golden brown.",
+      "image": "crescent-chicken-squares.jpg"
+    },
+    {
+      "id": "blueberryMuffins",
+      "title": "Blueberry Muffins",
+      "tag": "desserts",
+      "ingredients": "Sifted all-purpose flourt: 2 cups; Sugar: 1/4 cup; Baking powder: 3 tsp; Salt: 1 tsp; Milk: 1 cup; Egg (well beaten): 1 ; Butter (melted): 1/4 cup ; BLUEBERRIES: 1 cup",
+      "instructions": "SIFT TOGETHER FLOUR, SUGAR, BAKING POWDER AND SALT IN MIXING BOWL. STIR MILK INTO WELL-BEATEN EGG AND ADD SHORTENING. POUR INTO DRY INGREDIENTS AND STIR QUICKLY UNTIL INGREDIENTS ARE JUST BLENDED AND BATTER IS STILL ROUGH-LOOKING.; *NOTE~overstirring will cause muffins to be tough and have tunnels in them.; STIR IN BLUEBERRIES, THEN FILL WELL-GREASED MUFFIN PANS 2/3 FULL.; BAKE AT 400 DEGREES FOR 25 MINUTES",
+      "image": "blueberry-muffins.jpg"
+    },
+    {
+      "id": "strawberryDessert",
+      "title": "Strawberry Dessert (by Kip)",
+      "tag": "desserts",
+      "ingredients": "3 SMALL PKGS STRAWBERRY JELLO; 3 CUPS BOILING WATER; 1/2 CUP SUGAR; 2 BOXES FROZEN STRAWBERRIES; 1/2 TUBE ANGEL FOOD CAKE",
+      "instructions": "BREAK ANGEL FOOD INTO PIECES INTO 9 X 13 PAN.; POUR BOILING WATER OVER JELLO and SUGAR, STIR UNTIL DISSOLVED. ADD STRAWBERRIES, MIX WELL.; LET MIXTURE COOL WELL THEN POUR OVER CAKE PIECES.; REFRIGERATE UNTIL SET.; SERVE WITH WHIPPED CREAM",
+      "image": "strawberry-dessert.jpg"
+    },
+    {
+      "id": "bambooRice",
+      "title": "Bamboo Rice",
+      "tag": ["main-dishes", "side-dishes"],
+      "ingredients": ["bamboo shoots", "dashi broth"],
+      "instructions": "Cut the pre-cooked tender bamboo shoots into desired size. Wash 2-3 cups of rice kernels and place into a rice cooker. Add cut bamboo shoots. Add some dashi broth (stock) or other seasoning.",
+      "image": "dashi.jpg"
+    },
+    {
+      "id": "bakedFish",
+      "title": "Baked Fish",
+      "tag": ["main-dishes", "fish"],
+      "ingredients": ["white fish fillets", "butter", "lemon"],
+      "instructions": "Coat the fish with melted butter and season with sea salt and pepper. Slice the lemon and place on fish. Wrap in aluminum foil and cook in 180C oven for 15-20 minutes.",
+      "image": ""
+    }
+  ]
+}
