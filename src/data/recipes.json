@@ -51,18 +51,18 @@
     {
       "id": "bambooRice",
       "title": "Bamboo Rice",
-      "tag": ["main-dishes", "side-dishes"],
-      "ingredients": ["bamboo shoots", "dashi broth"],
+      "tag": "main-dishes; side-dishes",
+      "ingredients": "bamboo shoots; dashi broth",
       "instructions": "Cut the pre-cooked tender bamboo shoots into desired size. Wash 2-3 cups of rice kernels and place into a rice cooker. Add cut bamboo shoots. Add some dashi broth (stock) or other seasoning.",
       "image": "dashi.jpg"
     },
     {
       "id": "bakedFish",
       "title": "Baked Fish",
-      "tag": ["main-dishes", "fish"],
-      "ingredients": ["white fish fillets", "butter", "lemon"],
+      "tag": "main-dishes; fish",
+      "ingredients": "white fish fillets; butter; lemon",
       "instructions": "Coat the fish with melted butter and season with sea salt and pepper. Slice the lemon and place on fish. Wrap in aluminum foil and cook in 180C oven for 15-20 minutes.",
-      "image": ""
+      "image": "baked-fish.jpg"
     }
   ]
 }

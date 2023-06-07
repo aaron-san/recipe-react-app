@@ -68,8 +68,9 @@ const DetailWrapper = styled.div`
   justify-content: center;
 
   .active {
-    background: linear-gradient(45deg, #ef806e, #efc86f);
-    color: white;
+    /* background: aquamarine; */
+    color: black;
+    border: 4px solid aquamarine;
   }
   .titleAndImage {
     flex-direction: column;
@@ -142,7 +143,7 @@ const Button = styled.button`
   border: 2px solid #666;
   box-shadow: 2px 2px 5px 3px #888888;
   border-radius: 15px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-right: 2rem;
   margin-bottom: 2rem;
   font-weight: 600;
@@ -159,10 +160,10 @@ const InfoCard = styled.div`
   margin-left: 10rem;
   width: 100%;
   max-width: 600px;
-  background: pink;
-  border: 2px solid transparent;
+  /* background: pink; */
+  /* border: 2px solid #a67025; */
   border-radius: 15px;
-  padding: 20px;
+  padding: 0 10px;
 
   @media (max-width: 640px) {
     margin: 1rem;
@@ -174,7 +175,7 @@ const InfoCard = styled.div`
 const ContentWrapper = styled.div`
   background: white;
 
-  border: 10px solid transparent;
+  border: 3px solid transparent;
   border-image: linear-gradient(45deg, #db8594, pink);
   border-image-slice: 1;
   padding: 10px 20px;

@@ -29,7 +29,7 @@ function Cuisine() {
             <Card key={item.id}>
               <Link to={"/recipe/" + item.id}>
                 <h3>{item.title}</h3>
-                <img src={"../assets/images/" + item.image} />
+                <img src={"../assets/images/" + item.image} alt={item.title} />
               </Link>
             </Card>
           </motion.div>

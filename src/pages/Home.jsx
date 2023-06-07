@@ -11,7 +11,7 @@ import HeaderText from "../components/HeaderText";
 
 function Home() {
   return (
-    <Container>
+    <div className="home-container">
       <motion.div
         className="home"
         initial={{ opacity: 0 }}
@@ -25,16 +25,8 @@ function Home() {
         <Cuisine />
         {/* <Recipe /> */}
       </motion.div>
-    </Container>
+    </div>
   );
 }
 
 export default Home;
-
-const Container = styled.div`
-  margin: 0 100px;
-
-  @media (max-width: 640px) {
-    margin: 0 10px;
-  }
-`;
