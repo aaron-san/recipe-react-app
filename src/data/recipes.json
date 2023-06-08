@@ -63,6 +63,14 @@
       "ingredients": "white fish fillets; butter; lemon",
       "instructions": "Coat the fish with melted butter and season with sea salt and pepper. Slice the lemon and place on fish. Wrap in aluminum foil and cook in 180C oven for 15-20 minutes.",
       "image": "baked-fish.jpg"
+    },
+    {
+      "id": "miniHotdogs",
+      "title": "Mini Hotdogs",
+      "tag": "main-dishes; hotdogs",
+      "ingredients": "1 sheet puff pastry (or make own); 1 egg; 8 cocktail frankfurters; tomato sauce",
+      "instructions": "Cut thawed pastry into 8 pieces. Brush with beaten egg before placing a frankfurter across each pastry piece. Wrap opposite ends of pastry around the fankfurter. brush with egg again. Bake in 180C for 10-15 minutes or until golden. Serve with a bowl of tomato sauce for dipping.",
+      "image": "mini-hotdogs.png"
     }
   ]
 }
