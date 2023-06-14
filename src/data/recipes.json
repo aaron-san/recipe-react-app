@@ -69,8 +69,40 @@
       "title": "Mini Hotdogs",
       "tag": "main-dishes; hotdogs",
       "ingredients": "1 sheet puff pastry (or make own); 1 egg; 8 cocktail frankfurters; tomato sauce",
-      "instructions": "Cut thawed pastry into 8 pieces. Brush with beaten egg before placing a frankfurter across each pastry piece. Wrap opposite ends of pastry around the fankfurter. brush with egg again. Bake in 180C for 10-15 minutes or until golden. Serve with a bowl of tomato sauce for dipping.",
+      "instructions": "Cut thawed pastry into 8 pieces. Brush with beaten egg before placing a frankfurter across each pastry piece. Wrap opposite ends of pastry around the fankfurter. brush with egg again. Bake in 180°C for 10-15 minutes or until golden. Serve with a bowl of tomato sauce for dipping.",
       "image": "mini-hotdogs.png"
+    },
+    {
+      "id": "breadRolls",
+      "title": "Bread Rolls",
+      "tag": "side-dish",
+      "ingredients": "",
+      "instructions": "Remove core; Put in cooked meat (beef/chicken), ketchup, potates, onions, broccoli, etc.; Bake for 10 mins at 200°C. Top with cheese and raw egg; Add mayonaise, salt, pepper mustard",
+      "image": "breadRolls.png"
+    },
+    {
+      "id": "curry",
+      "title": "Curry",
+      "tag": "main-dishes",
+      "ingredients": "meat (ground chicken); onions; potatoes; carrots",
+      "instructions": "Saute the carrots to soften them; Fill pan to top of ingredients with water and boil (simmer); Add curry cubes",
+      "image": "curry.png"
+    },
+    {
+      "id": "tomatoSoup",
+      "title": "Tomato Soup",
+      "tag": "side-dishes",
+      "ingredients": "cabbage; carrots; onions; konsome (1 or 2 cubes); tomato soup puree",
+      "instructions": "Chop the vegetables to desired size and simmer until soft; Add konsome and tomato soup puree",
+      "image": "tomatoSoup.png"
+    },
+    {
+      "id": "chickenTenders",
+      "title": "Chicken Tenders",
+      "tag": "main-dishes; chicken",
+      "ingredients": "soy souce; garlic; ginger; salt and pepper",
+      "instructions": "Mix all raw ingredients; Dip in beaten egg batter; Cover in bread crumbs; Bake for 15 minutes at 400°F.",
+      "image": "tomatoSoup.png"
     }
   ]
 }

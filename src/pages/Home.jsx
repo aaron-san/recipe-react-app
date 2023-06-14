@@ -2,8 +2,8 @@ import Popular from "../components/Popular";
 import Cuisine from "./Cuisine";
 import React from "react";
 // import Search from "../components/Search";
+import Hero from "../components/Hero";
 import Button from "@mui/material/Button";
-// import AppBar from "../components/AppBar";
 import Recipe from "./Recipe";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -20,6 +20,7 @@ function Home() {
       >
         {/* <Search /> */}
         {/* <Button variant="contained">Hello World</Button> */}
+        {/* <Hero /> */}
         <HeaderText />
         <Popular />
         <Cuisine />

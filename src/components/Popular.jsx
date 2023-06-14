@@ -31,9 +31,8 @@ function Popular() {
       <div className="recipe-card-container">
         {recipes.recipes.map((recipe) => {
           return (
-            <Link to={"/recipe/" + recipe.id}>
+            <Link to={"/recipe/" + recipe.id} key={recipe.id}>
               <img
-                key={recipe.id}
                 className="recipe-card"
                 src={"assets/images/" + recipe.image}
                 alt={recipe.title}

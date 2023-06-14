@@ -52,28 +52,29 @@ code {
     monospace;
 }
 
-.navlink {
-  /* margin: 2rem; */
-  font-size: 1rem;
+/* NAV-LINK */
 
+.nav-link {
+  font-size: 1rem;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  gap: 7px;
   justify-content: center;
   align-items: center;
-  border-radius: 45px;
+  border-radius: 15px;
   border: 1px solid var(--persianOrange);
   /* box-shadow: 3px 3px 10px 3px var(--persianOrange); */
-  padding: 5px 5px;
+  padding: 8px 15px;
   text-align: center;
-  width: 210px;
-  margin: 5px 15px;
+  min-width: 150px;
+  margin: 5px 7px;
   text-decoration: none;
   background: white;
   font-size: 1.4rem;
 }
 
 @media (max-width: 800px) {
-  .navlink {
+  .nav-link {
     width: 30%;
     font-size: 1.2rem;
     padding: 5px 15px;
@@ -89,8 +90,8 @@ code {
   }
 }
 
-svg {
-  font-size: 4rem;
+.nav-link svg {
+  font-size: 2.5rem;
   text-align: center;
 }
 
@@ -172,7 +173,7 @@ h5 {
   flex-direction: row;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding: 1.2rem;
+  padding: 1.2rem 0.5rem;
   margin-bottom: 1.6rem;
 }
 
@@ -232,4 +233,8 @@ footer {
     font-size: 1.3rem;
     margin: 20px 30px 10px;
   }
+}
+
+.hero-container {
+  background-image: url("../public/assets/images/hero/bread.jpg");
 }

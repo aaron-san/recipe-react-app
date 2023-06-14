@@ -1,9 +1,8 @@
 import Pages from "./pages/Pages";
-import Category from "./components/Category";
+import Hero from "./components/Hero";
 import "@splidejs/react-splide/css";
 import { BrowserRouter } from "react-router-dom";
 import Search from "./components/Search";
-import AppBar from "./components/AppBar";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -19,7 +18,7 @@ function App() {
           {/* <Search />*/}
           {/* <AppBar /> */}
           <div>
-            <Category />
+            <Hero />
             <Pages />
           </div>
           <Footer />
