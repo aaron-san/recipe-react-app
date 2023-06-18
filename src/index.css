@@ -4,6 +4,9 @@
   --persianOrange: #be8a60;
   --wine: #6a2e35;
   --raisinBlack: #2e2836;
+
+  margin: 0;
+  padding: 0;
 }
 
 @font-face {
@@ -12,6 +15,11 @@
     url("../public/assets/fonts/IndieFlower-Regular.ttf") format("truetype");
 }
 
+.App {
+  /* max-width: 99%; */
+  /* margin: 2px; */
+  padding: 0;
+}
 body {
   /* display: flex; */
   /* flex-direction: column; */
@@ -26,11 +34,11 @@ body {
   background-size: cover;
   /* width: 100%; */
   /* height: 100vh; */
-
+  /* 
   @media (max-width: 640px) {
     /* max-width: 90%; */
-    margin: 0 50px;
-  }
+  /* margin: 0 50px; */
+  /* } */
   /* Background */
   /* background-image: radial-gradient(#f5c666 15%, #ffffff 20%); */
   /* background-position: 0 0; */
@@ -76,15 +84,16 @@ code {
 @media (max-width: 800px) {
   .nav-link {
     width: 30%;
-    font-size: 1.2rem;
-    padding: 5px 15px;
+    font-size: 1rem;
+    padding: 5px 5px;
     border-radius: 25px;
 
     span {
       font-size: 14px;
     }
     svg {
-      font-size: 3rem;
+      font-size: 1.2rem;
+      /* display: hidden; */
     }
     font-size: 1.2rem;
   }
@@ -145,15 +154,21 @@ h5 {
     max-height: 180px;
   }
   div {
-    position: absolute;
+    /* position: absolute; */
     bottom: 19px;
     margin-bottom: 2px;
-    padding: 0 25px;
-    width: 99px;
-    height: 90px;
+    /* padding: 0 10px; */
+    /* width: 99%; */
+    /* height: 99%; */
+    /* max-width: 99%; */
     z-index: 15;
     font-size: 1.3rem;
   }
+}
+
+.home {
+  margin: 0;
+  padding: 0;
 }
 
 .home-container {
@@ -162,7 +177,8 @@ h5 {
 
 @media (max-width: 640px) {
   .home-container {
-    margin: 0 10px;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -180,7 +196,7 @@ h5 {
 @media (max-width: 600px) {
   .nav-list {
     padding: 0;
-    margin: 10px 0;
+    /* margin: 10px 0; */
   }
 }
 
@@ -231,7 +247,8 @@ footer {
 @media (max-width: 640px) {
   .header-text {
     font-size: 1.3rem;
-    margin: 20px 30px 10px;
+    margin: 20px 5px 5px;
+    max-width: 99%;
   }
 }
 
