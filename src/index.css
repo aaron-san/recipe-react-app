@@ -63,14 +63,16 @@ code {
 /* NAV-LINK */
 
 .nav-link {
+  color: var(--WINE);
   font-size: 1rem;
   display: flex;
   /* flex-direction: column; */
   gap: 7px;
   justify-content: center;
   align-items: center;
+  opacity: 80%;
   border-radius: 15px;
-  border: 1px solid var(--persianOrange);
+  /* border: 2px solid var(--wine); */
   /* box-shadow: 3px 3px 10px 3px var(--persianOrange); */
   padding: 8px 15px;
   text-align: center;
@@ -81,27 +83,25 @@ code {
   font-size: 1.4rem;
 }
 
-@media (max-width: 800px) {
-  .nav-link {
-    width: 30%;
-    font-size: 1rem;
-    padding: 5px 5px;
-    border-radius: 25px;
-
-    span {
-      font-size: 14px;
-    }
-    svg {
-      font-size: 1.2rem;
-      /* display: hidden; */
-    }
-    font-size: 1.2rem;
-  }
-}
-
 .nav-link svg {
   font-size: 2.5rem;
   text-align: center;
+}
+@media (max-width: 640px) {
+  .nav-link {
+    min-width: 20%;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 25px;
+    opacity: 70%;
+  }
+  /* span {
+    font-size: 14px;
+  } */
+
+  .nav-link svg {
+    font-size: 1.2rem;
+  }
 }
 
 h1,
@@ -115,6 +115,7 @@ h5 {
 .recipe-card-container {
   display: flex;
   /* gap: 1rem; */
+  align-items: center;
   overflow-x: scroll;
   margin: 3px 8px 3px 8px;
 }
@@ -124,8 +125,8 @@ h5 {
   border-right: 2px solid var(--buff);
   /* border-radius: 2rem; */
   /* box-shadow: 0 3px 5px 0 var(--olivine); */
-  margin: 2px 14px 5px 2px;
-  padding: 2px 14px 5px 2px;
+  /* margin: 2px 14px 5px 2px; */
+  padding: 2px 10px;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -148,6 +149,13 @@ h5 {
 }
 
 @media (max-width: 640px) {
+  .popular-container {
+    margin: auto;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 640px) {
   img {
     padding: 3px 5px;
     max-width: 150px;
@@ -167,6 +175,10 @@ h5 {
 }
 
 .home {
+  /* display: flex; */
+  /* flex-direction: horizontal; */
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
   margin: 0;
   padding: 0;
 }
@@ -189,14 +201,17 @@ h5 {
   flex-direction: row;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding: 1.2rem 0.5rem;
-  margin-bottom: 1.6rem;
+  padding: 1.2rem 1.2rem;
+  /* margin-bottom: 1.6rem; */
 }
 
 @media (max-width: 600px) {
   .nav-list {
     padding: 0;
     /* margin: 10px 0; */
+  }
+  .nav-list a svg {
+    display: none;
   }
 }
 
@@ -221,6 +236,7 @@ footer {
 
 .header-text {
   width: 700px;
+  text-align: center;
   background: linear-gradient(
     to left,
     transparent,
@@ -234,15 +250,13 @@ footer {
   background-size: 100% 2px;
   background-repeat: repeat-x;
 
-  text-align: center;
   display: flex;
-  justify-content: center;
   font-family: Indie_Flower, serif;
+  margin: auto;
   color: steelblue;
   font-size: 2rem;
-  margin-bottom: 20px;
-  padding: 5px 0;
-  text-align: center;
+  /* margin-bottom: 20px; */
+  padding: 35px 0;
 }
 @media (max-width: 640px) {
   .header-text {
@@ -254,4 +268,33 @@ footer {
 
 .hero-container {
   background-image: url("../public/assets/images/hero/bread.jpg");
+  padding: 0.5rem 0;
+  margin: 0;
+  box-shadow: 3px 3px 10px 3px lightgray;
+}
+
+.recipe-card-container {
+  display: flex;
+  /* justify-content: center; */
+  padding: 8px 0;
+}
+
+.recipe-card {
+  display: flex;
+  /* height: 300px; */
+}
+
+.recipe-card-link {
+  /* width: 180px; */
+  /* width: 250px; */
+  /* height: 200px; */
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: vertical;
+  justify-content: center;
+}
+
+.recipe-card-img {
+  width: 200px;
 }

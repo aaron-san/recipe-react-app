@@ -4,7 +4,7 @@ import styled from "styled-components";
 function HeaderText() {
   return (
     <div className="header-text">
-      <div>Classic homemade recipes from the Midwest.</div>
+      Classic homemade recipes from the Midwest.
     </div>
   );
 }
