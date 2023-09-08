@@ -1,22 +1,13 @@
-// import { useEffect, useState } from "react";
-// import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import styled from "styled-components";
-import recipes from "../data/recipes.json";
+// import recipes from "../data/recipes.json";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 // import { motion } from "framer-motion";
 
-// recipes.recipes.map((img) => {
-//   console.log(img);
-// });
-
 function Popular() {
-  //   const [popular, setPopular] = useState([]);
+  // const dispatch = useDispatch();
+  const recipes = useSelector((state) => state.recipes.value);
 
-  //   useEffect(() => {
-  //     getPopular();
-  //   }, []);
-
-  //   console.log(recipes);
   // async ensures that we wait for the data before rendering anything else
   //   const getPopular = async () => {
   // const api = await fetch('https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}');
@@ -29,13 +20,14 @@ function Popular() {
     <div className="popular-container">
       {/* <h2 className="categoryTitle">Popular Picks</h2> */}
       <div className="recipe-card-container">
-        {recipes.recipes.map((recipe) => {
+        {recipes.map((recipe) => {
           return (
             <Link to={"/recipe/" + recipe.id} key={recipe.id}>
               <img
                 className="recipe-card"
                 src={"assets/images/" + recipe.image}
                 alt={recipe.title}
+                // key={recipe.id}
               />
             </Link>
           );

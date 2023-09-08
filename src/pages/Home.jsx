@@ -1,15 +1,18 @@
 import Popular from "../components/Popular";
-import Cuisine from "./Cuisine";
 import React from "react";
 // import Search from "../components/Search";
-import Hero from "../components/Hero";
-import Button from "@mui/material/Button";
-import Recipe from "./Recipe";
 import { motion } from "framer-motion";
-import styled from "styled-components";
 import HeaderText from "../components/HeaderText";
+import Form from "../components/Form";
+// import { useParams } from "react-router-dom";
+// import { db } from "./config/firestore";
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
+  // const [recipes, setRecipes] = useState([]);
+
+  // const recipes = useSelector((state) => state.recipes.value);
+
   return (
     <div className="home-container">
       <motion.div
@@ -23,7 +26,7 @@ function Home() {
         {/* <Hero /> */}
         <HeaderText />
         <Popular />
-        <Cuisine />
+        <Form />
         {/* <Recipe /> */}
       </motion.div>
     </div>

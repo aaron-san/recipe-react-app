@@ -1,54 +1,119 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import React from "react";
-import recipes from "../data/recipes.json";
-
-const recipeData = recipes.recipes.filter((recipe) => recipe.id);
+// import recipes from "../data/recipes.json";
+import { db } from "../config/firestore";
+import { updateDoc, doc } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { updateIngredientsRedux } from "../features/recipes/recipesSlice";
+import { AiOutlineEdit } from "react-icons/ai";
+// id  "0632d7e0-9272-4505-8773-b1576b08654b"
+// image "mini-hotdogs.png"
+// ingredients "1 sheet puff pastry (or make own); 1 egg; 8 cocktail frankfurters; tomato sauce"
+// instructions  "Cut thawed pastry into 8 pieces. Brush with beaten egg before placing a frankfurter across each pastry piece. Wrap opposite ends of pastry around the fankfurter. brush with egg again. Bake in 180°C for 10-15 minutes or until golden. Serve with a bowl of tomato sauce for dipping."
+// tag "main-dishes; hotdogs"
+// title "Mini Hotdogs"
 
 function Recipe() {
   let params = useParams();
-  //   const [details, setDetails] = useState({});
-  const [activeTab, setActiveTab] = useState("instructions");
+  const dispatch = useDispatch();
 
-  const filteredRecipe = recipeData.filter(
+  const recipes = useSelector((state) => state.recipes.value);
+
+  // const filteredRecipe = mappedData.filter(
+  //   (recipe) => recipe.ingredients !== null
+  // );
+  const filteredRecipe = recipes.filter(
     (recipe) => recipe.id === params.name
   )[0];
-  //   console.log(filteredRecipe);
-  //   console.log(filteredRecipe.ingredients);
+  // return filteredData;
+  // }
+  // const initialRecipes = getRecipes(db);
+
+  // setRecipeData(initialRecipes);
+  // }, []);
+  //   const [details, setDetails] = useState({});
+  // const [activeTab, setActiveTab] = useState("instructions");
+  // const recipesWithId = recipeData.filter((recipe) => recipe.id);
+  const [ingredients, setIngredients] = useState("");
+  const [editIngredients, setEditIngredients] = useState(false);
+
+  const updateIngredients = async (id, value) => {
+    // if (!id || !value) return;
+    if (!value) {
+      console.log("Please add a value!");
+      return;
+    }
+    console.log("Clicked submit!");
+
+    const docRef = doc(db, "recipes", id);
+    if (!docRef) return new Error("No doc ref!");
+
+    dispatch(updateIngredientsRedux({ id: id, ingredients: value }));
+    await updateDoc(docRef, { ingredients: value });
+    setEditIngredients(false);
+  };
 
   return (
     <DetailWrapper>
       <div className="titleAndImage">
         <h2>{filteredRecipe.title}</h2>
-        <img src={"../assets/images/" + filteredRecipe.image} alt="" />
+        <h2>{filteredRecipe.id}</h2>
+        {/* <img src={"../assets/images/" + filteredRecipe.image} alt="" /> */}
       </div>
       <InfoCard>
-        <ButtonWrapper>
-          <Button
+        {/* <ButtonWrapper> */}
+        {/* <Button
             className={activeTab === "instructions" ? "active" : ""}
             onClick={() => setActiveTab("instructions")}
           >
             Instructions
-          </Button>
-          <Button
-            className={activeTab === "ingredients" ? "active" : ""}
-            onClick={() => setActiveTab("ingredients")}
-          >
-            Ingredients
-          </Button>
-        </ButtonWrapper>
-        <ContentWrapper>
-          {activeTab === "instructions" &&
-            filteredRecipe.instructions.replaceAll(";", "")}
-          {activeTab === "ingredients" && (
-            <ul>
-              {filteredRecipe.ingredients.split(";").map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+          </Button> */}
+        <h2>Instructions</h2>
+
+        <h2>Ingredients</h2>
+        <ul>
+          {editIngredients ? (
+            <li className="flex flex-row flex-wrap">
+              <textarea
+                className="p-2 border border-gray-400 w-full"
+                rows={4}
+                cols={40}
+                // onChange={}
+                defaultValue={filteredRecipe.ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+              />
+              <button
+                type="button"
+                className="bg-green-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2 ml-0"
+                onClick={(e) => {
+                  updateIngredients(filteredRecipe.id, ingredients);
+                }}
+              >
+                Submit
+              </button>
+              <button
+                className="bg-red-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2"
+                onClick={() => setEditIngredients(false)}
+              >
+                Cancel
+              </button>
+            </li>
+          ) : (
+            filteredRecipe.ingredients?.split(";").map((item) => (
+              <li key={item} className="flex justify-between">
+                {item}
+                <button
+                  className="border border-gray-300 rounded-md shadow-md hover:shadow-none py-1 px-3 m-2"
+                  onClick={() => setEditIngredients(true)}
+                >
+                  <AiOutlineEdit />
+                </button>
+              </li>
+            ))
           )}
-        </ContentWrapper>
+        </ul>
       </InfoCard>
     </DetailWrapper>
 
@@ -135,26 +200,26 @@ const DetailWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
-  padding: 1rem 2rem;
-  color: #313131;
-  font-size: 1.2rem;
-  background: #fff;
-  border: 2px solid #666;
-  box-shadow: 2px 2px 5px 3px #888888;
-  border-radius: 15px;
-  margin-top: 10px;
-  margin-right: 2rem;
-  margin-bottom: 2rem;
-  font-weight: 600;
+// const Button = styled.button`
+//   padding: 1rem 2rem;
+//   color: #313131;
+//   font-size: 1.2rem;
+//   background: #fff;
+//   border: 2px solid #666;
+//   box-shadow: 2px 2px 5px 3px #888888;
+//   border-radius: 15px;
+//   margin-top: 10px;
+//   margin-right: 2rem;
+//   margin-bottom: 2rem;
+//   font-weight: 600;
 
-  @media (max-width: 640px) {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    padding: 8px;
-  }
-`;
+//   @media (max-width: 640px) {
+//     margin-right: 1rem;
+//     margin-bottom: 1rem;
+//     font-size: 1rem;
+//     padding: 8px;
+//   }
+// `;
 
 const InfoCard = styled.div`
   margin-left: 10rem;
@@ -172,28 +237,28 @@ const InfoCard = styled.div`
   }
 `;
 
-const ContentWrapper = styled.div`
-  background: white;
+// const ContentWrapper = styled.div`
+//   background: white;
 
-  border: 3px solid transparent;
-  border-image: linear-gradient(45deg, #db8594, pink);
-  border-image-slice: 1;
-  padding: 10px 20px;
-  color: #313131;
-  font-size: 1.6rem;
-  // text-align: justify;
-  line-height: 2.4rem;
+//   border: 3px solid transparent;
+//   border-image: linear-gradient(45deg, #db8594, pink);
+//   border-image-slice: 1;
+//   padding: 10px 20px;
+//   color: #313131;
+//   font-size: 1.6rem;
+//   // text-align: justify;
+//   line-height: 2.4rem;
 
-  @media (max-width: 640px) {
-    font-size: 1.1rem;
-    line-height: 1.5rem;
-    li {
-      // padding-left: 2px;
-    }
-  }
-`;
+//   @media (max-width: 640px) {
+//     font-size: 1.1rem;
+//     line-height: 1.5rem;
+//     li {
+//       // padding-left: 2px;
+//     }
+//   }
+// `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`;
+// const ButtonWrapper = styled.div`
+//   display: flex;
+//   justify-content: space-evenly;
+// `;
