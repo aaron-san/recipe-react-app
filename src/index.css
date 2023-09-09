@@ -140,8 +140,8 @@ h5 {
   /* box-shadow: 0 2px var(--buff); */
   /* border-left: 2px solid var(--buff); */
   /* border-right: 2px solid var(--buff); */
-  /* border-bottom: 2px solid var(--buff); */
-  background: red;
+  border-bottom: 2px solid var(--buff);
+  /* background: red; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
