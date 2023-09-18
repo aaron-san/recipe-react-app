@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import React from "react";
 // import recipes from "../data/recipes.json";
-import { db } from "../config/firestore";
+import { db } from "../config/firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { updateIngredientsRedux } from "../features/recipes/recipesSlice";

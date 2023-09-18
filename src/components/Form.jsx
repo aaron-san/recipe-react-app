@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoc, doc } from "firebase/firestore";
-import { db } from "../config/firestore";
+import { db } from "../config/firebase";
 import { nanoid } from "nanoid";
 import { addRecipe } from "../features/recipes/recipesSlice";
+// Authentication
+import { getAuth } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 // const res = await cityRef.update({capital: true});
 
 const Form = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   // "id": "chickenTenders",
   // "title": "Chicken Tenders",
   // "tag": "main-dishes; chicken",
@@ -49,14 +55,29 @@ const Form = () => {
 
   return (
     <div className="flex justify-center mt-4">
-      {!addForm ? (
+      {!addForm && (
         <button
           className="bg-green-400 rounded-md px-6 py-2 m-1 shadow-md hover:shadow-none"
           onClick={() => setAddForm(!addForm)}
         >
           Add Recipe
         </button>
-      ) : (
+      )}
+      {addForm && !user && (
+        <div>
+          Please{" "}
+          <Link to="/login" className="text-blue-500 underline">
+            Sign in
+          </Link>{" "}
+          or{" "}
+          <Link to="/signup" className="text-blue-500 underline">
+            Register
+          </Link>{" "}
+          to add a recipe.
+        </div>
+      )}
+
+      {addForm && user && (
         <form className="font-bold border border-gray-300 p-5 flex justify-center">
           <h1 className="text-3xl my-2 self-center uppercase underline text-red-700 ">
             Add Recipe
