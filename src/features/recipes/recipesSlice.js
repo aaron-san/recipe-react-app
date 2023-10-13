@@ -27,6 +27,13 @@ export const recipesSlice = createSlice({
       //   state.value += 1;
       state.value.push(action.payload);
     },
+    updateInstructionsRedux: (state, action) => {
+      state.value.forEach((item) => {
+        if (item.id === action.payload.id) {
+          item.instructions = action.payload.instructions;
+        }
+      });
+    },
     updateIngredientsRedux: (state, action) => {
       state.value.forEach((item) => {
         if (item.id === action.payload.id) {
@@ -65,7 +72,11 @@ export const recipesSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addRecipe, updateIngredientsRedux, deleteRecipe } =
-  recipesSlice.actions;
+export const {
+  addRecipe,
+  updateInstructionsRedux,
+  updateIngredientsRedux,
+  deleteRecipe,
+} = recipesSlice.actions;
 
 export default recipesSlice.reducer;

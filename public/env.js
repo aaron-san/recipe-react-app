@@ -4,7 +4,7 @@ window.env = {
   "APPDATA": "C:\\Users\\user\\AppData\\Roaming",
   "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
   "ChocolateyLastPathUpdate": "133234414252954819",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_2236_CDYAXDHATBHUSUEL",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_3976_RKRYDWRDGFCWNVGR",
   "COLOR": "1",
   "COLORTERM": "truecolor",
   "CommonProgramFiles": "C:\\Program Files\\Common Files",
@@ -20,6 +20,8 @@ window.env = {
   "FIREBASE_MESSAGING_SENDER_ID": "399401014732",
   "FIREBASE_PROJECT_ID": "recipe-react-app-ad1cc",
   "FIREBASE_STORAGE_BUCKET": "recipe-react-app-ad1cc.appspot.com",
+  "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+  "FPS_BROWSER_USER_PROFILE_STRING": "Default",
   "GIT_ASKPASS": "c:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
   "HOME": "C:\\Users\\user",
   "HOMEDRIVE": "C:",
@@ -33,7 +35,7 @@ window.env = {
   "NODE": "C:\\Program Files\\nodejs\\node.exe",
   "NODE_EXE": "C:\\Program Files\\nodejs\\\\node.exe",
   "NPM_CLI_JS": "C:\\Users\\user\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js",
-  "npm_command": "run-script",
+  "npm_command": "start",
   "npm_config_cache": "C:\\Users\\user\\AppData\\Local\\npm-cache",
   "npm_config_globalconfig": "C:\\Users\\user\\AppData\\Roaming\\npm\\etc\\npmrc",
   "npm_config_global_prefix": "C:\\Users\\user\\AppData\\Roaming\\npm",
@@ -80,7 +82,7 @@ window.env = {
   "SystemRoot": "C:\\WINDOWS",
   "TEMP": "C:\\Users\\user\\AppData\\Local\\Temp",
   "TERM_PROGRAM": "vscode",
-  "TERM_PROGRAM_VERSION": "1.82.0",
+  "TERM_PROGRAM_VERSION": "1.83.0",
   "TMP": "C:\\Users\\user\\AppData\\Local\\Temp",
   "USERDOMAIN": "GLM-14-240-JP",
   "USERDOMAIN_ROAMINGPROFILE": "GLM-14-240-JP",
@@ -93,6 +95,5 @@ window.env = {
   "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-cd9874916a-sock",
   "VSCODE_INJECTION": "1",
   "windir": "C:\\WINDOWS",
-  "ZES_ENABLE_SYSMAN": "1",
-  "__COMPAT_LAYER": "DetectorsAppHealth"
+  "ZES_ENABLE_SYSMAN": "1"
 };
