@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React from "react";
 // import recipes from "../data/recipes.json";
 import { db } from "../config/firebase";
@@ -11,6 +11,7 @@ import {
   updateIngredientsRedux,
 } from "../features/recipes/recipesSlice";
 import { AiOutlineEdit } from "react-icons/ai";
+import { getAuth } from "firebase/auth";
 // id  "0632d7e0-9272-4505-8773-b1576b08654b"
 // image "mini-hotdogs.png"
 // ingredients "1 sheet puff pastry (or make own); 1 egg; 8 cocktail frankfurters; tomato sauce"
@@ -19,6 +20,9 @@ import { AiOutlineEdit } from "react-icons/ai";
 // title "Mini Hotdogs"
 
 const Recipe = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   let params = useParams();
   const dispatch = useDispatch();
 
@@ -93,8 +97,41 @@ const Recipe = () => {
           </Button> */}
         <h2>Instructions</h2>
         <ul>
+          {filteredRecipe.instructions?.split(";").map((item) => (
+            <li key={item} className="flex justify-between">
+              {item}
+            </li>
+          ))}
+          {!editInstructions && (
+            <>
+              <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
+              <button
+                className="px-3 py-1 m-2 border border-gray-300 rounded-md shadow-md hover:shadow-none"
+                onClick={() => setEditInstructions(true)}
+              >
+                <AiOutlineEdit />
+              </button>
+            </>
+          )}
           {/* Edit instructions mode */}
-          {editInstructions ? (
+          {editInstructions && !user && (
+            <>
+              <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
+              <div className="mb-8">
+                Please{" "}
+                <Link to="/login" className="text-blue-500 underline">
+                  Sign in
+                </Link>{" "}
+                or{" "}
+                <Link to="/signup" className="text-blue-500 underline">
+                  Register
+                </Link>{" "}
+                to add a recipe.
+              </div>
+            </>
+          )}
+
+          {editInstructions && user && (
             <li className="flex flex-row flex-wrap">
               <textarea
                 className="w-full p-2 border border-gray-400"
@@ -120,26 +157,45 @@ const Recipe = () => {
                 Cancel
               </button>
             </li>
-          ) : (
-            filteredRecipe.instructions?.split(";").map((item) => (
-              <li key={item} className="flex justify-between">
-                {item}
-              </li>
-            ))
-          )}
-          {!editInstructions && (
-            <button
-              className="px-3 py-1 m-2 border border-gray-300 rounded-md shadow-md hover:shadow-none"
-              onClick={() => setEditInstructions(true)}
-            >
-              <AiOutlineEdit />
-            </button>
           )}
         </ul>
 
         <h2>Ingredients</h2>
+        {filteredRecipe.ingredients?.split(";").map((item) => (
+          <li key={item} className="flex justify-between">
+            {item}
+          </li>
+        ))}
+        {!editIngredients && (
+          <>
+            <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
+            <button
+              className="px-3 py-1 m-2 border border-gray-300 rounded-md shadow-md hover:shadow-none"
+              onClick={() => setEditIngredients(true)}
+            >
+              <AiOutlineEdit />
+            </button>
+          </>
+        )}
         <ul>
-          {editIngredients ? (
+          {editIngredients && !user && (
+            <>
+              <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
+              <div className="mb-8">
+                Please{" "}
+                <Link to="/login" className="text-blue-500 underline">
+                  Sign in
+                </Link>{" "}
+                or{" "}
+                <Link to="/signup" className="text-blue-500 underline">
+                  Register
+                </Link>{" "}
+                to add a recipe.
+              </div>
+            </>
+          )}
+
+          {editIngredients && user && (
             <li className="flex flex-row flex-wrap">
               <textarea
                 className="w-full p-2 border border-gray-400"
@@ -165,20 +221,6 @@ const Recipe = () => {
                 Cancel
               </button>
             </li>
-          ) : (
-            filteredRecipe.ingredients?.split(";").map((item) => (
-              <li key={item} className="flex justify-between">
-                {item}
-              </li>
-            ))
-          )}
-          {!editIngredients && (
-            <button
-              className="px-3 py-1 m-2 border border-gray-300 rounded-md shadow-md hover:shadow-none"
-              onClick={() => setEditIngredients(true)}
-            >
-              <AiOutlineEdit />
-            </button>
           )}
         </ul>
       </InfoCard>

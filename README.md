@@ -1,5 +1,7 @@
 See the live app [here](https://recipe-react-app-ad1cc.web.app/).
 
+This project uses react redux to manage local state and firebase firestore database to persist the data.
+
 # Workflow
 
 ## Run development server
