@@ -56,7 +56,8 @@ const Recipe = () => {
   const [editInstructions, setEditInstructions] = useState(false);
   const [ingredients, setIngredients] = useState("");
   const [editIngredients, setEditIngredients] = useState(false);
-  const [href, setEditHref] = useState("");
+  const [Href, setHref] = useState("");
+  const [editHref, setEditHref] = useState(false);
 
   const handleDelete = async (id) => {
     if (id === null) return;
@@ -84,12 +85,15 @@ const Recipe = () => {
   };
 
   const updateHref = async (id, value) => {
-    if (!value) return;
-
+    // if (!value) {
+    // setEditHref(false);
+    // return;
+    // }
     const docRef = doc(db, "recipes", id);
     if (!docRef) return new Error("No doc ref!");
 
     dispatch(updateHrefRedux({ id, href: value }));
+    setEditHref(false);
   };
 
   return (
@@ -102,6 +106,20 @@ const Recipe = () => {
           height="50px"
           width="50px"
         />
+        {!editHref && (
+          <button onClick={() => setEditHref(true)}>Edit Href</button>
+        )}
+        {editHref && (
+          <div>
+            <input
+              defaultValue={filteredRecipe.image}
+              onChange={(e) => setHref(e.target.value)}
+            />
+            <button onClick={() => updateHref(filteredRecipe.id, Href)}>
+              Save
+            </button>
+          </div>
+        )}
 
         {/* <img src={"../assets/images/" + filteredRecipe.image} alt="" /> */}
       </div>
@@ -253,8 +271,6 @@ const DetailWrapper = styled.div`
     background: rgba(250, 250, 250, 0.4);
     text-decoration: underline;
     text-decoration-color: lightblue;
-    /* border-top: 4px solid lightblue; */
-    /* border-bottom: 8px solid lightblue; */
     text-align: center;
 
     @media (max-width: 640px) {
@@ -285,8 +301,6 @@ const DetailWrapper = styled.div`
       padding: 8px 0;
       line-height: 2rem;
       font-size: 2rem;
-      border-top: 2px solid lightblue;
-      border-bottom: 4px solid lightblue;
     }
     line-height: 1.7rem;
     div {

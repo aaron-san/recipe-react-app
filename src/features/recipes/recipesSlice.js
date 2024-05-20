@@ -64,7 +64,7 @@ export const recipesSlice = createSlice({
     updateHrefRedux: (state, action) => {
       state.value.forEach((item) => {
         if (item.id === action.payload.id) {
-          item.href = action.payload.href;
+          item.image = action.payload.href;
         }
       });
     },
