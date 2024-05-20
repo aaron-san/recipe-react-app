@@ -211,7 +211,7 @@ h5 {
   }
 }
 
-.nav-list {
+/* .nav-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -220,7 +220,6 @@ h5 {
   border-bottom-right-radius: 20px;
   padding: 1.2rem 1.2rem;
   /* margin-bottom: 1.6rem; */
-}
 
 @media (max-width: 600px) {
   .nav-list {

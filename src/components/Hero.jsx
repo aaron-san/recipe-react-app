@@ -36,8 +36,8 @@ export default function Hero() {
   }
 
   return (
-    <div className="flex hero-container wrap">
-      <div className="nav-list">
+    <div className="flex justify-between hero-container">
+      <div className="flex gap-2">
         <NavLink className="nav-link" to={"/"}>
           <GiHomeGarage />
           <span>Home</span>
@@ -59,27 +59,29 @@ export default function Hero() {
           <span>Side Dishes</span>
         </NavLink>
       </div>
-      {!user && (
-        <NavLink
-          className="text-white border border-white shadow-md bg-green-500/80 hover:bg-green-500/90 active:translate-y-1 p-2 rounded-lg h-fit w-fit min-w-[80px] mr-[10px] mt-[30px] text-center"
-          to={"/login"}
-        >
-          <div>Log In</div>
-        </NavLink>
-      )}
-      {user && (
-        <div className="flex gap-4">
-          <div className="self-center p-2 text-white border border-white rounded-md">
-            {user.email}
-          </div>
-          <button
-            className="text-white border border-white shadow-md bg-red-500/80 hover:bg-red-500/100 active:translate-y-1 p-2 rounded-lg h-fit w-fit min-w-[80px] mr-[10px] mt-[30px] text-center"
-            onClick={handleLogOut}
+      <div className="flex flex-wrap">
+        {!user && (
+          <NavLink
+            className="text-white border border-white shadow-md bg-green-500/80 hover:bg-green-500/90 active:translate-y-1 p-2 rounded-lg h-fit w-fit min-w-[80px] text-center"
+            to={"/login"}
           >
-            Sign out
-          </button>
-        </div>
-      )}
+            <div>Log In</div>
+          </NavLink>
+        )}
+        {user && (
+          <div className="flex flex-wrap items-center justify-end gap-4">
+            <div className="self-center p-2 text-white border border-white rounded-md">
+              {user.email}
+            </div>
+            <button
+              className="text-white border border-white shadow-md bg-red-500/80 hover:bg-red-500/100 active:translate-y-1 p-2 rounded-lg h-fit w-fit min-w-[80px] text-center mr-4"
+              onClick={handleLogOut}
+            >
+              Sign out
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

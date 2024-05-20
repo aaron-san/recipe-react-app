@@ -98,17 +98,25 @@ const Recipe = () => {
 
   return (
     <DetailWrapper>
-      <div className="titleAndImage">
-        <h2>{filteredRecipe.title}</h2>
+      <div className="flex flex-col items-center">
         <img
           src={`/assets/images/${filteredRecipe.image}`}
           alt={filteredRecipe.title}
           height="50px"
           width="50px"
         />
-        {!editHref && (
-          <button onClick={() => setEditHref(true)}>Edit Href</button>
-        )}
+        <div className="flex items-baseline justify-center gap-2">
+          <h2>{filteredRecipe.title}</h2>
+          {!editHref && (
+            <button
+              onClick={() => setEditHref(true)}
+              className="px-3 py-4 opacity-30 h-fit hover:shadow-md hover:opacity-100"
+            >
+              <AiOutlineEdit />
+            </button>
+          )}
+        </div>
+
         {editHref && (
           <div>
             <input
@@ -124,8 +132,17 @@ const Recipe = () => {
         {/* <img src={"../assets/images/" + filteredRecipe.image} alt="" /> */}
       </div>
       <InfoCard>
-        <h2>Instructions</h2>
-
+        <div className="flex items-center gap-4 mb-4">
+          <h2>Instructions</h2>
+          {!editInstructions && (
+            <button
+              className="px-3 py-4 opacity-30 h-fit hover:shadow-md hover:opacity-100"
+              onClick={() => setEditInstructions(true)}
+            >
+              <AiOutlineEdit />
+            </button>
+          )}
+        </div>
         <div className="flex items-center justify-between mb-8">
           <ol>
             {filteredRecipe.instructions?.split(";").map((item) => (
@@ -165,20 +182,18 @@ const Recipe = () => {
               </li>
             )}
           </ol>
-          {!editInstructions && (
-            <>
-              <div className="flex gap-4 align-middle">
-                <button
-                  className="px-3 py-4 border border-gray-300 rounded-md shadow-md opacity-30 h-fit hover:shadow-none hover:opacity-100"
-                  onClick={() => setEditInstructions(true)}
-                >
-                  <AiOutlineEdit />
-                </button>
-              </div>
-            </>
+        </div>
+        <div className="flex items-center gap-4 mb-4">
+          <h2>Ingredients</h2>
+          {!editIngredients && (
+            <button
+              className="px-3 py-4 opacity-30 h-fit hover:shadow-md hover:opacity-100"
+              onClick={() => setEditIngredients(true)}
+            >
+              <AiOutlineEdit />
+            </button>
           )}
         </div>
-        <h2>Ingredients</h2>
         <div className="flex items-center justify-between">
           <ul>
             {!editIngredients &&
@@ -218,12 +233,6 @@ const Recipe = () => {
               </li>
             )}
           </ul>
-          <button
-            className="px-3 py-4 border border-gray-300 rounded-md shadow-md opacity-30 h-fit hover:shadow-none hover:opacity-100"
-            onClick={() => setEditIngredients(true)}
-          >
-            <AiOutlineEdit />
-          </button>
         </div>
         {!editIngredients && (
           <button
@@ -256,17 +265,11 @@ const DetailWrapper = styled.div`
     color: black;
     border: 4px solid aquamarine;
   }
-  .titleAndImage {
-    flex-direction: column;
-    padding: 0 20px 20px;
-    display: flex;
-    align-items: center;
-  }
+
   h2 {
     margin-top: 0;
-    margin-bottom: 2rem;
     padding: 5px;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: #313131;
     background: rgba(250, 250, 250, 0.4);
     text-decoration: underline;

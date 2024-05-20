@@ -58,7 +58,7 @@ const Form = () => {
     <div className="flex justify-center mt-4">
       {!addForm && (
         <button
-          className="px-6 py-2 m-1 bg-green-400 rounded-md shadow-md hover:shadow-none"
+          className="px-6 py-2 m-1 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:shadow-none"
           onClick={() => setAddForm(!addForm)}
         >
           Add Recipe

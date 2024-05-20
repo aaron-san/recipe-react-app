@@ -67,6 +67,9 @@ export const recipesSlice = createSlice({
           item.image = action.payload.href;
         }
       });
+      if (!action.payload) return;
+      const docRef = doc(db, "recipes", action.payload.id);
+      updateDoc(docRef, { image: action.payload.href });
     },
 
     // clearStateRedux: (state, action) => {
