@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { nanoid } from "nanoid";
-import { addRecipe } from "../features/recipes/recipesSlice";
+import { addRecipeRedux } from "../features/recipes/recipesSlice";
 // Authentication
 import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
@@ -32,7 +32,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes.value);
 
-  const handleClick = async (e) => {
+  const handleAddRecipe = async (e) => {
     e.preventDefault();
     const newRecipe = {
       id: nanoid(),
@@ -42,7 +42,7 @@ const Form = () => {
       instructions,
       image,
     };
-    dispatch(addRecipe(newRecipe));
+    dispatch(addRecipeRedux(newRecipe));
     await setDoc(doc(db, "recipes", newRecipe.id), newRecipe);
 
     setTitle("");
@@ -50,6 +50,7 @@ const Form = () => {
     setIngredients("");
     setInstructions("");
     setImage("");
+    setAddForm(false);
   };
   //   console.log("Form - recipes length:", recipes.length);
 
@@ -57,7 +58,7 @@ const Form = () => {
     <div className="flex justify-center mt-4">
       {!addForm && (
         <button
-          className="bg-green-400 rounded-md px-6 py-2 m-1 shadow-md hover:shadow-none"
+          className="px-6 py-2 m-1 bg-green-400 rounded-md shadow-md hover:shadow-none"
           onClick={() => setAddForm(!addForm)}
         >
           Add Recipe
@@ -78,11 +79,11 @@ const Form = () => {
       )}
 
       {addForm && user && (
-        <form className="font-bold border border-gray-300 p-5 flex justify-center">
-          <h1 className="text-3xl my-2 self-center uppercase underline text-red-700 ">
+        <form className="flex justify-center p-5 font-bold border border-gray-300">
+          <h1 className="self-center my-2 text-3xl text-red-700 underline uppercase ">
             Add Recipe
           </h1>
-          <div className="flex m-1 justify-end items-center">
+          <div className="flex items-center justify-end m-1">
             <label htmlFor="title">Title: </label>
             <input
               type="text"
@@ -94,7 +95,7 @@ const Form = () => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          <div className="flex m-1 justify-end items-center">
+          <div className="flex items-center justify-end m-1">
             <label htmlFor="tags">Tags:</label>
             <input
               type="text"
@@ -105,7 +106,7 @@ const Form = () => {
               onChange={(e) => setTags(e.target.value)}
             />
           </div>
-          <div className="flex m-1 justify-end items-center">
+          <div className="flex items-center justify-end m-1">
             <label htmlFor="ingredients">Ingredients: </label>
             <input
               type="text"
@@ -116,18 +117,18 @@ const Form = () => {
               onChange={(e) => setIngredients(e.target.value)}
             />
           </div>
-          <div className="flex m-1 justify-end items-center">
+          <div className="flex items-center justify-end m-1">
             <label htmlFor="instructions">Instructions: </label>
-            <input
+            <textarea
               type="text"
               name="instructions"
-              className="text-md"
+              className="p-2 m-2 border border-blue-600 text-md w-[226px]"
               value={instructions}
               placeholder="Instructions..."
               onChange={(e) => setInstructions(e.target.value)}
-            />
+            ></textarea>
           </div>
-          <div className="flex m-1 justify-end items-center">
+          <div className="flex items-center justify-end m-1">
             <label className="" htmlFor="image">
               Image URL:{" "}
             </label>
@@ -140,15 +141,15 @@ const Form = () => {
               onChange={(e) => setImage(e.target.value)}
             />
           </div>
-          <div className="flex flex-nowrap justify-center">
+          <div className="flex justify-center flex-nowrap">
             <button
-              className="bg-green-400 rounded-md px-6 py-2 m-1 shadow-md hover:shadow-none"
-              onClick={(e) => handleClick(e)}
+              className="px-6 py-2 m-1 bg-green-400 rounded-md shadow-md hover:shadow-none"
+              onClick={(e) => handleAddRecipe(e)}
             >
               Submit
             </button>
             <button
-              className="bg-red-400 rounded-md px-6 py-2 m-1 shadow-md hover:shadow-none"
+              className="px-6 py-2 m-1 bg-red-400 rounded-md shadow-md hover:shadow-none"
               onClick={() => setAddForm(false)}
             >
               Cancel

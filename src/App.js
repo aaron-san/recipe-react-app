@@ -13,7 +13,7 @@ import {
   // useLocation,
 } from "react-router-dom";
 // import Search from "./components/Search";
-import { addRecipe } from "./features/recipes/recipesSlice";
+import { addRecipeRedux } from "./features/recipes/recipesSlice";
 
 import Home from "./pages/Home";
 import Searched from "./pages/Searched";
@@ -23,7 +23,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Signup from "./pages/Signup";
 
-import { AnimatePresence } from "framer-motion";
+// import { AnimatePresence } from "framer-motion";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -31,17 +31,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Footer from "./components/Footer";
 function App() {
-  const currentUser = useContext(AuthProvider);
+  // const currentUser = useContext(AuthProvider);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const getRecipes = async (db) => {
-      const recipesSnapshot = await getDocs(collection(db, "recipes"));
-      // console.log(recipesSnapshot);
+      const recipesRef = collection(db, "recipes");
+      const recipesSnapshot = await getDocs(recipesRef);
       const recipesList = recipesSnapshot.docs.map((doc) => doc.data());
       // Add the firestore recipes to the redux store
-      recipesList.forEach((recipe) => dispatch(addRecipe(recipe)));
-      // setRecipes(recipesList);
+      recipesList.forEach((recipe) => dispatch(addRecipeRedux(recipe)));
     };
+
     getRecipes(db);
   }, [dispatch]);
 

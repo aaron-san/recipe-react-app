@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 import { createSlice } from "@reduxjs/toolkit";
-// import { db } from "../../config/firestore";
+import { db } from "../../config/firebase";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 export const recipesSlice = createSlice({
   name: "recipes",
@@ -19,20 +20,25 @@ export const recipesSlice = createSlice({
     // ],
   },
   reducers: {
-    addRecipe: (state, action) => {
+    addRecipeRedux: (state, action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       //   state.value += 1;
-      state.value.push(action.payload);
+      state.value.unshift(action.payload);
     },
     updateInstructionsRedux: (state, action) => {
+      if (!action.payload.instructions) return;
+
       state.value.forEach((item) => {
         if (item.id === action.payload.id) {
           item.instructions = action.payload.instructions;
         }
       });
+      const docRef = doc(db, "recipes", action.payload.id);
+      if (!docRef) return new Error("No doc ref!");
+      updateDoc(docRef, { instructions: action.payload.instructions });
     },
     updateIngredientsRedux: (state, action) => {
       state.value.forEach((item) => {
@@ -40,12 +46,32 @@ export const recipesSlice = createSlice({
           item.ingredients = action.payload.ingredients;
         }
       });
+
+      if (!action.payload) return;
+      const docRef = doc(db, "recipes", action.payload.id);
+      if (!docRef) return new Error("No doc ref!");
+
+      updateDoc(docRef, { ingredients: action.payload.ingredients });
     },
-    deleteRecipe: (state, action) => {
+    deleteRecipeRedux: (state, action) => {
       state.value = state.value.filter(
         (recipe) => recipe.id !== action.payload.id
       );
+      const docRef = doc(db, "recipes", action.payload.id);
+      if (!docRef) return new Error("No doc ref!");
+      deleteDoc(docRef);
     },
+    updateHrefRedux: (state, action) => {
+      state.value.forEach((item) => {
+        if (item.id === action.payload.id) {
+          item.href = action.payload.href;
+        }
+      });
+    },
+
+    // clearStateRedux: (state, action) => {
+    //   state.value = null;
+    // },
     // incrementByAmount: (state, action) => {
     //   state.value += action.payload;
     // },
@@ -73,10 +99,12 @@ export const recipesSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  addRecipe,
+  addRecipeRedux,
   updateInstructionsRedux,
   updateIngredientsRedux,
-  deleteRecipe,
+  deleteRecipeRedux,
+  clearStateRedux,
+  updateHrefRedux,
 } = recipesSlice.actions;
 
 export default recipesSlice.reducer;

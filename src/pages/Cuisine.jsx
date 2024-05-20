@@ -8,7 +8,6 @@ const Cuisine = () => {
 
   const recipes = useSelector((state) => state.recipes.value);
 
-  console.log(recipes);
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.tag.includes(params.type)
   );

@@ -73,10 +73,10 @@ const db = getFirestore(app);
 // getRecipes(db);
 
 try {
+  const recipesRef = collection(db, "recipes");
   recipes.recipes.forEach(async (obj) => {
     // console.log(obj);
     const recipeId = uuidv4();
-    const recipesRef = collection(db, "recipes");
     // await addDoc(collection(db, "recipes"), {
     await setDoc(doc(recipesRef, recipeId), {
       // db.coll("recipes").add({

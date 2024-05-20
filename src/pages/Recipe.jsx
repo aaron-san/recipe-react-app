@@ -1,14 +1,25 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import React from "react";
+import SignIn from "../components/SignIn";
 // import recipes from "../data/recipes.json";
 import { db } from "../config/firebase";
-import { updateDoc, doc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  deleteDoc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateInstructionsRedux,
   updateIngredientsRedux,
+  deleteRecipeRedux,
+  addRecipeRedux,
+  clearStateRedux,
+  updateHrefRedux,
 } from "../features/recipes/recipesSlice";
 import { AiOutlineEdit } from "react-icons/ai";
 import { getAuth } from "firebase/auth";
@@ -20,6 +31,7 @@ import { getAuth } from "firebase/auth";
 // title "Mini Hotdogs"
 
 const Recipe = () => {
+  const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -28,9 +40,6 @@ const Recipe = () => {
 
   const recipes = useSelector((state) => state.recipes.value);
 
-  // const filteredRecipe = mappedData.filter(
-  //   (recipe) => recipe.ingredients !== null
-  // );
   const filteredRecipe = recipes.filter(
     (recipe) => recipe.id === params.name
   )[0];
@@ -47,30 +56,24 @@ const Recipe = () => {
   const [editInstructions, setEditInstructions] = useState(false);
   const [ingredients, setIngredients] = useState("");
   const [editIngredients, setEditIngredients] = useState(false);
+  const [href, setEditHref] = useState("");
+
+  const handleDelete = async (id) => {
+    if (id === null) return;
+    const response = prompt("Please type 'DELETE' to delete.");
+    if (response === "DELETE") {
+      dispatch(deleteRecipeRedux({ id }));
+      navigate("/");
+    }
+  };
 
   const updateInstructions = async (id, value) => {
-    // if (!id || !value) return;
-    if (!value) {
-      console.log("Please add a value!");
-      return;
-    }
-    console.log("Clicked submit!");
-
-    const docRef = doc(db, "recipes", id);
-    if (!docRef) return new Error("No doc ref!");
-
-    dispatch(updateInstructionsRedux({ id: id, instructions: value }));
-    await updateDoc(docRef, { instructions: value });
+    dispatch(updateInstructionsRedux({ id, instructions: value }));
     setEditInstructions(false);
   };
 
   const updateIngredients = async (id, value) => {
-    // if (!id || !value) return;
-    if (!value) {
-      console.log("Please add a value!");
-      return;
-    }
-    console.log("Clicked submit!");
+    if (!value) return;
 
     const docRef = doc(db, "recipes", id);
     if (!docRef) return new Error("No doc ref!");
@@ -80,149 +83,138 @@ const Recipe = () => {
     setEditIngredients(false);
   };
 
+  const updateHref = async (id, value) => {
+    if (!value) return;
+
+    const docRef = doc(db, "recipes", id);
+    if (!docRef) return new Error("No doc ref!");
+
+    dispatch(updateHrefRedux({ id, href: value }));
+  };
+
   return (
     <DetailWrapper>
       <div className="titleAndImage">
         <h2>{filteredRecipe.title}</h2>
-        <h2>{filteredRecipe.id}</h2>
+        <img
+          src={`/assets/images/${filteredRecipe.image}`}
+          alt={filteredRecipe.title}
+          height="50px"
+          width="50px"
+        />
+
         {/* <img src={"../assets/images/" + filteredRecipe.image} alt="" /> */}
       </div>
       <InfoCard>
-        {/* <ButtonWrapper> */}
-        {/* <Button
-            className={activeTab === "instructions" ? "active" : ""}
-            onClick={() => setActiveTab("instructions")}
-          >
-            Instructions
-          </Button> */}
         <h2>Instructions</h2>
-        <ul>
-          {filteredRecipe.instructions?.split(";").map((item) => (
-            <li key={item} className="flex justify-between">
-              {item}
-            </li>
-          ))}
+
+        <div className="flex items-center justify-between mb-8">
+          <ol>
+            {filteredRecipe.instructions?.split(";").map((item) => (
+              <li key={item} className="ml-6">
+                <span>{item}</span>
+              </li>
+            ))}
+
+            {/* Edit instructions mode */}
+            {editInstructions && !user && <SignIn />}
+
+            {editInstructions && user && (
+              <li className="flex flex-row flex-wrap">
+                <textarea
+                  className="w-full p-2 border border-gray-400"
+                  rows={4}
+                  cols={40}
+                  // onChange={}
+                  defaultValue={filteredRecipe.instructions}
+                  onChange={(e) => setInstructions(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="bg-green-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2 ml-0"
+                  onClick={(e) => {
+                    updateInstructions(filteredRecipe.id, instructions);
+                  }}
+                >
+                  Submit
+                </button>
+                <button
+                  className="bg-red-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2"
+                  onClick={() => setEditInstructions(false)}
+                >
+                  Cancel
+                </button>
+              </li>
+            )}
+          </ol>
           {!editInstructions && (
             <>
-              <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
-              <button
-                className="px-3 py-1 m-2 border border-gray-300 rounded-md shadow-md hover:shadow-none"
-                onClick={() => setEditInstructions(true)}
-              >
-                <AiOutlineEdit />
-              </button>
-            </>
-          )}
-          {/* Edit instructions mode */}
-          {editInstructions && !user && (
-            <>
-              <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
-              <div className="mb-8">
-                Please{" "}
-                <Link to="/login" className="text-blue-500 underline">
-                  Sign in
-                </Link>{" "}
-                or{" "}
-                <Link to="/signup" className="text-blue-500 underline">
-                  Register
-                </Link>{" "}
-                to add a recipe.
+              <div className="flex gap-4 align-middle">
+                <button
+                  className="px-3 py-4 border border-gray-300 rounded-md shadow-md opacity-30 h-fit hover:shadow-none hover:opacity-100"
+                  onClick={() => setEditInstructions(true)}
+                >
+                  <AiOutlineEdit />
+                </button>
               </div>
             </>
           )}
-
-          {editInstructions && user && (
-            <li className="flex flex-row flex-wrap">
-              <textarea
-                className="w-full p-2 border border-gray-400"
-                rows={4}
-                cols={40}
-                // onChange={}
-                defaultValue={filteredRecipe.instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-              />
-              <button
-                type="button"
-                className="bg-green-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2 ml-0"
-                onClick={(e) => {
-                  updateInstructions(filteredRecipe.id, instructions);
-                }}
-              >
-                Submit
-              </button>
-              <button
-                className="bg-red-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2"
-                onClick={() => setEditInstructions(false)}
-              >
-                Cancel
-              </button>
-            </li>
-          )}
-        </ul>
-
+        </div>
         <h2>Ingredients</h2>
-        {filteredRecipe.ingredients?.split(";").map((item) => (
-          <li key={item} className="flex justify-between">
-            {item}
-          </li>
-        ))}
-        {!editIngredients && (
-          <>
-            <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
-            <button
-              className="px-3 py-1 m-2 border border-gray-300 rounded-md shadow-md hover:shadow-none"
-              onClick={() => setEditIngredients(true)}
-            >
-              <AiOutlineEdit />
-            </button>
-          </>
-        )}
-        <ul>
-          {editIngredients && !user && (
-            <>
-              <div className="h-3 w-full border-b border-slate-300 rounded-full"></div>
-              <div className="mb-8">
-                Please{" "}
-                <Link to="/login" className="text-blue-500 underline">
-                  Sign in
-                </Link>{" "}
-                or{" "}
-                <Link to="/signup" className="text-blue-500 underline">
-                  Register
-                </Link>{" "}
-                to add a recipe.
-              </div>
-            </>
-          )}
+        <div className="flex items-center justify-between">
+          <ul>
+            {!editIngredients &&
+              filteredRecipe.ingredients?.split(";").map((item) => (
+                <li key={item} className="flex w-fit">
+                  <span>{item}</span>
+                </li>
+              ))}
 
-          {editIngredients && user && (
-            <li className="flex flex-row flex-wrap">
-              <textarea
-                className="w-full p-2 border border-gray-400"
-                rows={4}
-                cols={40}
-                // onChange={}
-                defaultValue={filteredRecipe.ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-              />
-              <button
-                type="button"
-                className="bg-green-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2 ml-0"
-                onClick={(e) => {
-                  updateIngredients(filteredRecipe.id, ingredients);
-                }}
-              >
-                Submit
-              </button>
-              <button
-                className="bg-red-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2"
-                onClick={() => setEditIngredients(false)}
-              >
-                Cancel
-              </button>
-            </li>
-          )}
-        </ul>
+            {editIngredients && !user && <SignIn />}
+
+            {editIngredients && user && (
+              <li className="flex flex-row flex-wrap">
+                <textarea
+                  className="w-full p-2 border border-gray-400"
+                  rows={4}
+                  cols={40}
+                  // onChange={}
+                  defaultValue={filteredRecipe.ingredients}
+                  onChange={(e) => setIngredients(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="bg-green-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2 ml-0"
+                  onClick={(e) => {
+                    updateIngredients(filteredRecipe.id, ingredients);
+                  }}
+                >
+                  Submit
+                </button>
+                <button
+                  className="bg-red-200 w-[200px] rounded-md shadow-md hover:shadow-none px-3 py-1 m-2"
+                  onClick={() => setEditIngredients(false)}
+                >
+                  Cancel
+                </button>
+              </li>
+            )}
+          </ul>
+          <button
+            className="px-3 py-4 border border-gray-300 rounded-md shadow-md opacity-30 h-fit hover:shadow-none hover:opacity-100"
+            onClick={() => setEditIngredients(true)}
+          >
+            <AiOutlineEdit />
+          </button>
+        </div>
+        {!editIngredients && (
+          <button
+            className="p-2 mt-20 text-red-400 border border-red-300 rounded-full opacity-30 hover:opacity-100 active:translate-y-[1px]"
+            onClick={() => handleDelete(filteredRecipe.id)}
+          >
+            Delete Recipe
+          </button>
+        )}
       </InfoCard>
     </DetailWrapper>
 
@@ -259,8 +251,10 @@ const DetailWrapper = styled.div`
     font-size: 2.5rem;
     color: #313131;
     background: rgba(250, 250, 250, 0.4);
-    border-top: 4px solid lightblue;
-    border-bottom: 8px solid lightblue;
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    /* border-top: 4px solid lightblue; */
+    /* border-bottom: 8px solid lightblue; */
     text-align: center;
 
     @media (max-width: 640px) {

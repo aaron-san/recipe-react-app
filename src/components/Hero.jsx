@@ -36,7 +36,7 @@ export default function Hero() {
   }
 
   return (
-    <div className="hero-container flex wrap">
+    <div className="flex hero-container wrap">
       <div className="nav-list">
         <NavLink className="nav-link" to={"/"}>
           <GiHomeGarage />
@@ -68,8 +68,8 @@ export default function Hero() {
         </NavLink>
       )}
       {user && (
-        <div>
-          <div className="text-white border border-white rounded-md p-2 m-2">
+        <div className="flex gap-4">
+          <div className="self-center p-2 text-white border border-white rounded-md">
             {user.email}
           </div>
           <button

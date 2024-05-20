@@ -25,10 +25,6 @@ export function AuthProvider({ children }) {
   }
 
   function login(email, password) {
-    // const userDetails = signInWithEmailAndPassword(auth, email, password);
-    // console.log(currentUser ? true : false); // true
-    // console.log(currentUser.email);
-    // return userDetails;
     return signInWithEmailAndPassword(auth, email, password);
   }
 
@@ -49,7 +45,6 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    // console.log(currentUser.uid);
     currentUser && logout();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       console.log(user?.uid, user?.email);

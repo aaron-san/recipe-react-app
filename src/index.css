@@ -242,7 +242,7 @@ footer {
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 
 @media (max-width: 640px) {
@@ -319,4 +319,36 @@ input {
   padding: 0.5rem;
   border: 1px solid blue;
   margin: 0.5rem;
+}
+
+li span {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
+  text-decoration-color: rgba(229, 171, 11, 0.3);
+}
+
+/* ul li::before {
+  content: "";
+  color: rgba(245, 80, 15, 0.9);
+  margin-right: 4px;
+  font-size: x-large;
+  opacity: 50%;
+  text-decoration: none;
+} */
+ul li::before {
+  content: "⮩";
+  color: hotpink;
+  font-size: large;
+  margin-right: 4px;
+}
+
+ol {
+  list-style-type: decimal;
+  /* list-style-position: inside; */
+}
+
+li::marker {
+  color: hotpink;
+  animation: color-change 3s ease-in-out infinite;
 }
