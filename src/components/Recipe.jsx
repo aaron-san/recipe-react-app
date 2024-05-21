@@ -320,27 +320,6 @@ const DetailWrapper = styled.div`
   }
 `;
 
-// const Button = styled.button`
-//   padding: 1rem 2rem;
-//   color: #313131;
-//   font-size: 1.2rem;
-//   background: #fff;
-//   border: 2px solid #666;
-//   box-shadow: 2px 2px 5px 3px #888888;
-//   border-radius: 15px;
-//   margin-top: 10px;
-//   margin-right: 2rem;
-//   margin-bottom: 2rem;
-//   font-weight: 600;
-
-//   @media (max-width: 640px) {
-//     margin-right: 1rem;
-//     margin-bottom: 1rem;
-//     font-size: 1rem;
-//     padding: 8px;
-//   }
-// `;
-
 const InfoCard = styled.div`
   margin-left: 10rem;
   width: 100%;
@@ -356,29 +335,3 @@ const InfoCard = styled.div`
     // font-size: 11px;
   }
 `;
-
-// const ContentWrapper = styled.div`
-//   background: white;
-
-//   border: 3px solid transparent;
-//   border-image: linear-gradient(45deg, #db8594, pink);
-//   border-image-slice: 1;
-//   padding: 10px 20px;
-//   color: #313131;
-//   font-size: 1.6rem;
-//   // text-align: justify;
-//   line-height: 2.4rem;
-
-//   @media (max-width: 640px) {
-//     font-size: 1.1rem;
-//     line-height: 1.5rem;
-//     li {
-//       // padding-left: 2px;
-//     }
-//   }
-// `;
-
-// const ButtonWrapper = styled.div`
-//   display: flex;
-//   justify-content: space-evenly;
-// `;

@@ -66,13 +66,18 @@ export default function Hero() {
           animate={showMenu ? "open" : "close"}
         >
           <div className="flex flex-col items-center gap-2 mt-8 text-2xl">
-            <NavLink className="flex gap-2 p-2 text-slate-100" to={"/"}>
+            <NavLink
+              className="flex gap-2 p-2 text-slate-100"
+              to={"/"}
+              onClick={() => setShowMenu(false)}
+            >
               <GiHomeGarage />
               <span>Home</span>
             </NavLink>
             <NavLink
               className="flex gap-2 p-2 text-slate-100 hover:text-blue-500 active:text-slate-400 active:underline active:font-bold"
               to={"/cuisine/desserts"}
+              onClick={() => setShowMenu(false)}
             >
               <GiPieSlice />
               <span>Desserts</span>
@@ -80,6 +85,7 @@ export default function Hero() {
             <NavLink
               className="flex gap-2 p-2 text-slate-100 hover:text-blue-500 active:text-slate-400 active:underline active:font-bold"
               to={"/cuisine/healthy"}
+              onClick={() => setShowMenu(false)}
             >
               <GiBodyBalance />
               <span>Healthy</span>
@@ -87,6 +93,7 @@ export default function Hero() {
             <NavLink
               className="flex gap-2 p-2 text-slate-100 hover:text-blue-500 active:text-slate-400 active:underline active:font-bold"
               to={"/cuisine/main-dishes"}
+              onClick={() => setShowMenu(false)}
             >
               <GiChickenOven />
               <span>Main Dishes</span>
@@ -94,14 +101,15 @@ export default function Hero() {
             <NavLink
               className="flex gap-2 p-2 text-slate-100 hover:text-blue-500 active:text-slate-400 active:underline active:font-bold"
               to={"/cuisine/side-dishes"}
+              onClick={() => setShowMenu(false)}
             >
               <GiRiceCooker />
               <span>Side Dishes</span>
             </NavLink>
           </div>
           <button
-            onClick={() => setShowMenu(false)}
             className="w-[40px] h-[40px] mx-auto  hover:bg-slate-500 rounded-full absolute top-4 right-4 mr-4"
+            onClick={() => setShowMenu(false)}
           >
             X
           </button>
