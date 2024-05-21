@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import Popular from "../components/Popular";
-import React from "react";
 // import Search from "../components/Search";
 import { motion } from "framer-motion";
 import HeaderText from "../components/HeaderText";
@@ -9,6 +9,7 @@ import Form from "../components/Form";
 import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
+  const [showMenu, setShowMenu] = useState(false);
   // const [recipes, setRecipes] = useState([]);
 
   // const recipes = useSelector((state) => state.recipes.value);
