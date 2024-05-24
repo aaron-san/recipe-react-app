@@ -98,12 +98,11 @@ const Recipe = () => {
 
   return (
     <DetailWrapper>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center w-[500px] h-[900px]">
         <img
           src={`/assets/images/${filteredRecipe.image}`}
           alt={filteredRecipe.title}
-          height="50px"
-          width="50px"
+          className="min-h-[300px] min-w-[300px]"
         />
         <div className="flex items-baseline justify-center gap-2">
           <h2>{filteredRecipe.title}</h2>

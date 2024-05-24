@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 // const res = await cityRef.update({capital: true});
 
-const Form = () => {
+const Form = ({ addForm, setAddForm }) => {
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -27,7 +27,7 @@ const Form = () => {
   const [instructions, setInstructions] = useState("");
   const [image, setImage] = useState("");
 
-  const [addForm, setAddForm] = useState(false);
+  // const [addForm, setAddForm] = useState(false);
 
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes.value);
@@ -58,7 +58,7 @@ const Form = () => {
     <div className="flex justify-center mt-4">
       {!addForm && (
         <button
-          className="px-6 py-2 m-1 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:shadow-none"
+          className="px-6 py-2 m-1 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:bg-slate-100"
           onClick={() => setAddForm(!addForm)}
         >
           Add Recipe

@@ -8,23 +8,15 @@ function Popular() {
   // const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes.value);
 
-  // async ensures that we wait for the data before rendering anything else
-  //   const getPopular = async () => {
-  // const api = await fetch('https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}');
-  // const data = await api.json();
-  // setPopular(data.recipes);
-  //   setPopular(recipes);
-  //   };
-
   return (
-    <div className="popular-container">
+    <div className="flex  justify-center mx-auto">
       {/* <h2 className="categoryTitle">Popular Picks</h2> */}
-      <div className="recipe-card-container">
+      <div className="w-[800px] flex gap-2 overflow-x-scroll no-wrap no-scrollbar border-8 border-yellow-500 border-opacity-80 rounded-md">
         {recipes.map((recipe) => {
           return (
-            <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+            <Link to={"/recipe/" + recipe.id} key={recipe.id} className="">
               <img
-                className="recipe-card"
+                className="h-[200px] border border-orange-30 min-w-[200px] shadow-md"
                 src={"assets/images/" + recipe.image}
                 alt={recipe.title}
                 // key={recipe.id}

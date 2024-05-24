@@ -38,7 +38,7 @@ const Cuisine = () => {
       {filteredRecipes.map((recipe) => {
         return (
           <div
-            className="flex flex-wrap items-center w-[200px] hover:shadow-md rounded-md"
+            className="flex flex-wrap items-center hover:shadow-md rounded-md"
             key={recipe.id}
           >
             <NavLink to={`/recipe/${recipe.id}`}>
@@ -47,10 +47,10 @@ const Cuisine = () => {
                 alt={recipe.title}
                 width="100%"
                 height="auto"
-                className="rounded-t-md"
+                className="rounded-t-md h-[180px] w-[200px]"
               />
-              <div className="w-full h-[60px] px-2 py-1 border shadow-md bg-slate-100 border-b-slate-400 rounded-b-md text-center">
-                {recipe.title}
+              <div className="w-full h-[60px] px-2 py-1 border shadow-md bg-slate-100 border-b-slate-400 rounded-b-md flex items-center justify-center">
+                <p>{recipe.title}</p>
               </div>
             </NavLink>
           </div>

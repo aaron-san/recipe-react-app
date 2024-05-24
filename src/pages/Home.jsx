@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Home() {
   const [showMenu, setShowMenu] = useState(false);
   // const [recipes, setRecipes] = useState([]);
-
+  const [addForm, setAddForm] = useState(false);
   // const recipes = useSelector((state) => state.recipes.value);
 
   return (
@@ -25,9 +25,14 @@ function Home() {
         {/* <Search /> */}
         {/* <Button variant="contained">Hello World</Button> */}
         {/* <Hero /> */}
-        <HeaderText />
-        <Popular />
-        <Form />
+
+        {!addForm && (
+          <>
+            <HeaderText />
+            <Popular />
+          </>
+        )}
+        <Form addForm={addForm} setAddForm={setAddForm} />
         {/* <Recipe /> */}
       </motion.div>
     </div>
