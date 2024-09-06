@@ -7,9 +7,11 @@ import {
   GiHomeGarage,
 } from "react-icons/gi";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+// import { auth, logout } from "../config/firebase";
+// import { logout, selectUser } from "../features/auth/authSlice";
+import { dispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { useAuth } from "../contexts/AuthContext";
 
 const menuVariants = {
@@ -25,9 +27,10 @@ const menuVariants = {
 };
 
 export default function Hero() {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const { logout } = useAuth();
+  // const auth = getAuth();
+  const { user, logout } = useAuth();
+
+  // const user = useSelector(selectUser);
   const navigate = useNavigate();
   // const [error, setError] = useState("");
   // const [loading, setLoading] = useState(false);
@@ -40,7 +43,7 @@ export default function Hero() {
     try {
       // setError("");
       // setLoading(true);
-      await logout();
+      logout();
       navigate("/");
     } catch (err) {
       // setError("Failed to log out");
@@ -52,7 +55,7 @@ export default function Hero() {
   return (
     <div className="flex justify-between hero-container">
       <button
-        className="w-[40px] h-[40px] border rounded-full border-slate-100 hover:bg-slate-400 text-slate-100 ml-4"
+        className="w-[40px] h-[40px] border rounded-full border-slate-100 hover:opacity-95 text-slate-100 ml-4"
         onClick={() => setShowMenu(true)}
       >
         &#x2630;
@@ -123,7 +126,7 @@ export default function Hero() {
       <div className="flex flex-wrap">
         {!user && (
           <NavLink
-            className="text-white border border-white shadow-md bg-green-500/80 hover:bg-green-500/90 active:translate-y-1 p-2 rounded-lg h-fit w-fit min-w-[80px] text-center mr-4"
+            className="text-white border border-white shadow-md bg-green-500/80 hover:bg-green-500/90 active:active:scale-[98%] p-2 rounded-lg h-fit w-fit min-w-[80px] text-center mr-4"
             to={"/login"}
           >
             <div>Log In</div>
@@ -132,7 +135,7 @@ export default function Hero() {
         {user && (
           <div className="flex flex-wrap items-center justify-end gap-4">
             <button
-              className="text-white border border-white shadow-md bg-red-500/80 hover:bg-red-500/100 active:translate-y-1 p-2 rounded-lg h-fit w-fit min-w-[80px] text-center mr-4"
+              className="text-white border border-white shadow-md bg-red-500/80 hover:bg-red-500/100 active:scale-[98%] p-2 rounded-lg h-fit w-fit min-w-[80px] text-center mr-4"
               onClick={handleLogOut}
             >
               Sign out

@@ -1,13 +1,12 @@
 import React from "react";
 
 function Footer() {
-  const today = new Date();
+  const year = new Date().getFullYear();
 
   return (
     <footer>
       <div>
-        &copy; {today.getFullYear()} Food by the Carlson and Hardy families and
-        friends!
+        &copy; {year} Food by the Carlson and Hardy families and friends!
       </div>
     </footer>
   );

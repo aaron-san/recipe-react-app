@@ -54,7 +54,7 @@ export default function Login() {
             <button
               disabled={loading}
               type="submit"
-              className="bg-green-600/60 hover:bg-green-600/80 border border-green rounded-md active:translate-y-1 text-white w-fit px-4 py-2 mx-auto"
+              className="bg-green-600/60 hover:bg-green-600/80 border border-green rounded-md active:scale-[98%] text-white w-fit px-4 py-2 mx-auto"
             >
               Log in
             </button>

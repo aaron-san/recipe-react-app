@@ -34,7 +34,7 @@ export default function Signup() {
     <>
       <section>
         <div>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2 className="mb-4 text-center">Sign Up</h2>
           {error && console.warn({ error })}
           <form onSubmit={handleSubmit}>
             <div>

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setDoc, doc } from "firebase/firestore";
-import { db } from "../config/firebase";
 import { nanoid } from "nanoid";
-import { addRecipeRedux } from "../features/recipes/recipesSlice";
+// import { addRecipeRedux } from "../features/recipes/slices/recipesSlice";
 // Authentication
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+// import { auth } from "../config/firebase";
+import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+// import { useAddNewRecipeMutation } from "../features/recipes/recipesApi";
 
 // const res = await cityRef.update({capital: true});
 
-const Form = ({ addForm, setAddForm }) => {
-  const auth = getAuth();
-  const user = auth.currentUser;
+const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
+  // const [addNewRecipe, { isLoading }] = useAddNewRecipeMutation();
+  const { user } = useAuth();
 
   // "id": "chickenTenders",
   // "title": "Chicken Tenders",
@@ -22,49 +22,58 @@ const Form = ({ addForm, setAddForm }) => {
   // "image": "tomatoSoup.png"
 
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const [tags, setTags] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState([]);
   const [image, setImage] = useState("");
 
-  // const [addForm, setAddForm] = useState(false);
+  // const [addRecipe, setAddRecipe] = useState(false);
 
-  const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes.value);
+  // const dispatch = useDispatch();
+  // const recipes = useSelector((state) => state.recipes.value);
 
   const handleAddRecipe = async (e) => {
+    // Prevent server submission
     e.preventDefault();
+
     const newRecipe = {
       id: nanoid(),
       title,
       tags,
-      ingredients,
-      instructions,
+      ingredients: formatStringToArray(ingredients),
+      instructions: formatStringToArray(instructions),
       image,
     };
-    dispatch(addRecipeRedux(newRecipe));
-    await setDoc(doc(db, "recipes", newRecipe.id), newRecipe);
+    // await addNewRecipe(newRecipe);
+    // await setDoc(doc(db, "recipes", newRecipe.id), newRecipe);
 
     setTitle("");
-    setTags("");
-    setIngredients("");
-    setInstructions("");
+    setTags([]);
+    setIngredients([]);
+    setInstructions([]);
     setImage("");
-    setAddForm(false);
+    setAddRecipe(false);
   };
   //   console.log("Form - recipes length:", recipes.length);
 
+  function formatStringToArray(str) {
+    return str
+      .split(";")
+      .map((el) => el.trim())
+      .filter((el) => el !== "");
+  }
+
   return (
-    <div className="flex justify-center mt-4">
-      {!addForm && (
+    <div className="flex justify-center gap-4">
+      {!addRecipe && !addNote && (
         <button
-          className="px-6 py-2 m-1 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:bg-slate-100"
-          onClick={() => setAddForm(!addForm)}
+          className="px-6 py-2 my-4 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:bg-slate-100"
+          onClick={() => setAddRecipe(!addRecipe)}
         >
           Add Recipe
         </button>
       )}
-      {addForm && !user && (
+      {addRecipe && !user && (
         <div>
           Please{" "}
           <Link to="/login" className="text-blue-500 underline">
@@ -78,7 +87,7 @@ const Form = ({ addForm, setAddForm }) => {
         </div>
       )}
 
-      {addForm && user && (
+      {addRecipe && user && (
         <form className="flex justify-center p-5 font-bold border border-gray-300">
           <h1 className="self-center my-2 text-3xl text-red-700 underline uppercase ">
             Add Recipe
@@ -90,6 +99,7 @@ const Form = ({ addForm, setAddForm }) => {
               name="title"
               className="text-md"
               autoFocus
+              required
               value={title}
               placeholder="Title..."
               onChange={(e) => setTitle(e.target.value)}
@@ -97,14 +107,20 @@ const Form = ({ addForm, setAddForm }) => {
           </div>
           <div className="flex items-center justify-end m-1">
             <label htmlFor="tags">Tags:</label>
-            <input
-              type="text"
+            <select
               name="tags"
               className="text-md"
               value={tags}
-              placeholder="Tags..."
-              onChange={(e) => setTags(e.target.value)}
-            />
+              onChange={(e) => {
+                const options = [...e.target.selectedOptions];
+                const values = options.map((option) => option.value);
+                setTags(values);
+              }}
+              multiple={true}
+            >
+              <option value="main-dishes">Main Dish</option>
+              <option value="side-dishes">Side Dish</option>
+            </select>
           </div>
           <div className="flex items-center justify-end m-1">
             <label htmlFor="ingredients">Ingredients: </label>
@@ -112,8 +128,9 @@ const Form = ({ addForm, setAddForm }) => {
               type="text"
               name="ingredients"
               className="text-md"
+              required
               value={ingredients}
-              placeholder="Ingredients..."
+              placeholder="rice; potatoes; ..."
               onChange={(e) => setIngredients(e.target.value)}
             />
           </div>
@@ -123,14 +140,15 @@ const Form = ({ addForm, setAddForm }) => {
               type="text"
               name="instructions"
               className="p-2 m-2 border border-blue-600 text-md w-[226px]"
+              required
               value={instructions}
-              placeholder="Instructions..."
+              placeholder="[instruction1; instruction2; ...]"
               onChange={(e) => setInstructions(e.target.value)}
-            ></textarea>
+            />
           </div>
           <div className="flex items-center justify-end m-1">
             <label className="" htmlFor="image">
-              Image URL:{" "}
+              Image URL:
             </label>
             <input
               type="text"
@@ -149,8 +167,9 @@ const Form = ({ addForm, setAddForm }) => {
               Submit
             </button>
             <button
+              type="button"
               className="px-6 py-2 m-1 bg-red-400 rounded-md shadow-md hover:shadow-none"
-              onClick={() => setAddForm(false)}
+              onClick={() => setAddRecipe(false)}
             >
               Cancel
             </button>
@@ -173,4 +192,4 @@ const Form = ({ addForm, setAddForm }) => {
   );
 };
 
-export default Form;
+export default FormRecipe;

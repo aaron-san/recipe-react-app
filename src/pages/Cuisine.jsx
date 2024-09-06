@@ -1,33 +1,37 @@
 import React, { useState } from "react";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuth } from "firebase/auth";
-import { AiOutlineEdit } from "react-icons/ai";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getAuth } from "firebase/auth";
+// import { AiOutlineEdit } from "react-icons/ai";
+import { auth } from "../config/firebase";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../contexts/AuthContext";
 
 import {
-  updateInstructionsRedux,
-  updateIngredientsRedux,
-  deleteRecipeRedux,
-  updateHrefRedux,
-} from "../features/recipes/recipesSlice";
-import { db } from "../config/firebase";
-import {
-  updateDoc,
-  doc,
-  deleteDoc,
-  getDocs,
-  collection,
-} from "firebase/firestore";
+  useFetchRecipesQuery,
+  useAddNewRecipeMutation,
+  useUpdateInstructionsMutation,
+} from "../features/recipes/recipesApi";
+// import { db } from "../config/firebase";
+// import {
+//   updateDoc,
+//   doc,
+//   deleteDoc,
+//   getDocs,
+//   collection,
+// } from "firebase/firestore";
 
 const Cuisine = () => {
-  const navigate = useNavigate();
-  const auth = getAuth();
-  const user = auth.currentUser;
+  // const navigate = useNavigate();
+  const { user } = useAuth();
 
   let params = useParams();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const recipes = useSelector((state) => state.recipes.value);
+  // const recipes = useSelector((state) => state.recipes.value);
+
+  const { data: recipes, error, isLoading } = useFetchRecipesQuery();
 
   const filteredRecipes = recipes.filter((recipe) => {
     return recipe.tag?.split(";").includes(params.type);
@@ -38,7 +42,7 @@ const Cuisine = () => {
       {filteredRecipes.map((recipe) => {
         return (
           <div
-            className="flex flex-wrap items-center hover:shadow-md rounded-md"
+            className="flex flex-wrap items-center rounded-md hover:shadow-md"
             key={recipe.id}
           >
             <NavLink to={`/recipe/${recipe.id}`}>
