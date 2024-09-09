@@ -1,20 +1,18 @@
 import React, { useState, createRef } from "react";
-import { setDoc, doc } from "firebase/firestore";
-import { db } from "../config/firebase";
-import { useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
-// import { getAuth } from "firebase/auth";
-// import { auth } from "../config/firebase";
 import { useAuth } from "../contexts/AuthContext";
+import { useAddNewNoteMutation } from "../features/notes/notesApi";
 
 const AddNote = ({ addNote, setAddNote, addRecipe }) => {
   const { user } = useAuth();
 
   const [isDisabled, setIsDisabled] = useState(false);
-  const [title, setTitle] = useState(null);
-  const [content, setContent] = useState(null);
-
   const buttonRef = createRef();
+
+  const titleRef = createRef();
+  const contentRef = createRef();
+
+  const [addNewNote] = useAddNewNoteMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,19 +20,17 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
     setIsDisabled(true);
 
     const newNote = {
-      id: nanoid(),
-      title: title,
-      content: content,
+      // id: nanoid(),
+      title: titleRef.current.value,
+      content: contentRef.current.value,
     };
 
-    // await setDoc(doc(db, "notes", newNote.id), newNote);
+    await addNewNote({ newNote });
 
-    // setTimeout(() => {
+    // A Chinese seasoning that is salty and good, but should be used moderately
+
     setIsDisabled(false);
     setAddNote(false);
-    setTitle("");
-    setContent("");
-    // }, 2000);
   };
 
   return (
@@ -61,7 +57,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
             required
             placeholder="Add a title"
             className="p-2 m-0"
-            onChange={(e) => setTitle(e.target.value)}
+            ref={titleRef}
           />
           {/* <label htmlFor="content">Content:</label> */}
           <textarea
@@ -70,7 +66,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
             placeholder="Add content"
             className="p-2 border border-blue-500"
             width="600px"
-            onChange={(e) => setContent(e.target.value)}
+            ref={contentRef}
           ></textarea>
           <div className="flex gap-2">
             <button
@@ -79,7 +75,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
               className="self-start w-1/2 px-4 py-2 my-2 bg-green-200 rounded-md hover:bg-green-100"
               disabled={isDisabled}
             >
-              {isDisabled ? "Disabled" : "Submit"}
+              Submit
             </button>
             <button
               onClick={() => setAddNote(false)}

@@ -17,12 +17,16 @@ function Popular() {
       {error && <div>Error !!</div>}
       {isLoading && <div>Loading ...</div>}
       {recipes && (
-        <div className="w-[800px] flex gap-2 overflow-x-scroll no-wrap no-scrollbar border-8 border-yellow-500 border-opacity-80 rounded-md">
+        <div className="w-[800px] flex gap-2 overflow-x-scroll no-wrap no-scrollbar border-8 border-yellow-500 border-opacity-80 rounded-md snap-x">
           {recipes?.map((recipe) => {
             return (
-              <Link to={"/recipe/" + recipe.id} key={recipe.id} className="">
+              <Link
+                to={"/recipe/" + recipe.id}
+                key={recipe.id}
+                className="snap-center"
+              >
                 <img
-                  className="h-[200px] border border-orange-30 min-w-[200px] shadow-md"
+                  className="h-[260px] border border-orange-300 min-w-[300px] shadow-md"
                   src={"assets/images/" + recipe.image}
                   alt={recipe.title}
                   // key={recipe.id}

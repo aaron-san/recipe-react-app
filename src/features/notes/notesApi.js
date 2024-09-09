@@ -1,9 +1,12 @@
 import { db } from "../../config/firebase";
+import { nanoid } from "nanoid";
+
 import {
   // arrayUnion,
   collection,
   doc,
   setDoc,
+  addDoc,
   updateDoc,
   deleteDoc,
   getDocs,
@@ -31,14 +34,15 @@ export const notesApi = createApi({
           return { error: error.message };
         }
       },
-      provideTags: ["Notes"],
+      providesTags: ["Notes"],
     }),
     addNewNote: builder.mutation({
-      async queryFn({ newNote }) {
+      queryFn: async ({ newNote }) => {
         try {
-          const ref = doc(db, "notes");
+          const docRef = doc(db, "notes", nanoid());
           // await setDoc(ref, newNote, { merge: true });
-          await setDoc(ref, newNote);
+          await setDoc(docRef, newNote);
+          return { data: "ok" };
         } catch (error) {
           console.error(error.message);
           return { error: error.message };
