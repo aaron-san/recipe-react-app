@@ -35,7 +35,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
 
   return (
     <div className="flex justify-center">
-      {!addNote && user && !addRecipe && (
+      {!addNote && !addRecipe && (
         <div className="flex justify-center">
           <button
             onClick={() => setAddNote(true)}

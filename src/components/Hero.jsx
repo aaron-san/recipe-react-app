@@ -63,7 +63,7 @@ export default function Hero() {
 
       {showMenu && (
         <motion.section
-          className="absolute h-[1200px] bg-slate-600 text-slate-100 top-0 flex flex-col gap-4 z-50"
+          className="absolute h-screen bg-slate-600 text-slate-100 top-0 flex flex-col gap-4 z-50"
           variants={menuVariants}
           // initial={{ width: showMenu ? "0px" : "600px" }}
           animate={showMenu ? "open" : "close"}

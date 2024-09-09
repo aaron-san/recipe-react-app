@@ -74,16 +74,22 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
         </button>
       )}
       {addRecipe && !user && (
-        <div>
-          Please{" "}
-          <Link to="/login" className="text-blue-500 underline">
-            Sign in
-          </Link>{" "}
-          or{" "}
-          <Link to="/signup" className="text-blue-500 underline">
-            Register
-          </Link>{" "}
-          to add a recipe.
+        <div className="flex justify-center mt-16 h-screen">
+          <div className="text-center">
+            <p>
+              Please{" "}
+              <Link to="/login" className="text-blue-500 underline">
+                Sign in
+              </Link>{" "}
+              or{" "}
+              <Link to="/signup" className="text-blue-500 underline">
+                Register
+              </Link>{" "}
+              <br />
+              <br />
+              to add a recipe.
+            </p>
+          </div>
         </div>
       )}
 

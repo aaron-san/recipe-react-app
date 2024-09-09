@@ -139,18 +139,18 @@ const Recipe = () => {
 
   if (isLoading || !recipe) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center mt-18 h-screen">
         <div className="text-xl font-bold animate-pulse">Loading...</div>
       </div>
     );
   } else {
     return (
-      <div className="flex justify-center max-w-[1000px] mx-auto my-6 gap-4">
-        <div className="flex flex-col items-center max-w-[400px] h-[900px] mt-4">
+      <div className="flex flex-col md:flex-row justify-center w-90 md:max-w-[1000px] mx-auto my-6 gap-4 mx-4">
+        <div className="flex flex-col items-center max-w-[400px] md:h-[900px] mt-4">
           <img
             src={`/assets/images/${recipe.image}`}
             alt={recipe.title}
-            className="min-h-[300px] min-w-[300px] shadow-md rounded-lg border-8 border-emerald-200"
+            className="w-90 md:min-h-[300px] md:min-w-[300px] shadow-md rounded-lg border-8 border-emerald-200"
           />
           {!editTitle && (
             <div className="flex justify-center gap-2 mt-2">
@@ -183,9 +183,8 @@ const Recipe = () => {
               </button>
             </div>
           )}
-          <Note />
         </div>
-        <div>
+        <div className="">
           <div className="flex items-center gap-4 mb-4">
             <h2>Instructions</h2>
             {!editInstructions && user && (
@@ -197,7 +196,7 @@ const Recipe = () => {
               </button>
             )}
           </div>
-          <div className="flex items-center justify-between mb-8 w-[400px]">
+          <div className="flex items-center justify-between mb-8 lg:w-[400px]">
             <ol>
               {recipe.instructions &&
                 recipe.instructions.map((item) => (
@@ -312,6 +311,8 @@ const Recipe = () => {
             </button>
           )}
         </div>
+
+        <Note />
       </div>
 
       //   // {recipeData.map((recipe) => {

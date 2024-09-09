@@ -232,16 +232,15 @@ footer {
 
   display: flex;
   font-family: Indie_Flower, serif;
-  margin: auto;
+  margin: 12px auto 0;
   color: steelblue;
   font-size: 2rem;
   /* margin-bottom: 20px; */
-  padding: 35px 0;
+  padding: 6px 0;
 }
 @media (max-width: 640px) {
   .header-text {
     font-size: 1.3rem;
-    margin: 20px 5px 5px;
     max-width: 99%;
   }
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Popular from "../components/Popular";
 import { motion } from "framer-motion";
-import HeaderText from "../components/HeaderText";
 import FormRecipe from "../components/FormRecipe";
 import AddNote from "./AddNote";
 // import { useParams } from "react-router-dom";
@@ -9,15 +8,13 @@ import AddNote from "./AddNote";
 // import { useDispatch, useSelector } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "../features/user/slices/userSlice";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../config/firebase";
 
 function Home() {
   const [addRecipe, setAddRecipe] = useState(false);
   const [addNote, setAddNote] = useState(false);
 
   // const user = useSelector(selectUser);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // check at page load if a user is authenticated
   // useEffect(() => {
@@ -50,7 +47,9 @@ function Home() {
       >
         {!addRecipe && (
           <>
-            <HeaderText />
+            <div className="header-text">
+              Classic homemade recipes from the Midwest.
+            </div>
             <Popular />
           </>
         )}

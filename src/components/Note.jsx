@@ -9,7 +9,7 @@ const Note = () => {
   }, [notes]);
 
   return (
-    <section className="text-purple text-boldest bg-gradient-to-br from-green-200 via-yellow-300 to-orange-400 rounded-md w-[200px] mt-4 p-2">
+    <section className="text-purple text-boldest bg-gradient-to-br from-green-200 via-yellow-300 to-orange-400 rounded-md w-[200px] mt-4 p-2 mx-auto">
       <div className="bg-white border-8 border-white">
         {/* <h1>Note:</h1> */}
         {randNote && (
