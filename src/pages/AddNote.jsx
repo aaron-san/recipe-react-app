@@ -39,7 +39,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
         <div className="flex justify-center">
           <button
             onClick={() => setAddNote(true)}
-            className="px-6 py-2 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:bg-slate-100 my-4"
+            className="bg-amber-400 hover:bg-amber-400/90 shadow-md my-4 px-6 py-2 border border-slate-800 rounded-lg text-slate-800 active-translate-y-[1px]"
           >
             Add Note
           </button>
@@ -48,7 +48,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
       {addNote && user && (
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="w-[900px] flex flex-col gap-2"
+          className="flex flex-col gap-2 w-[900px]"
         >
           {/* <label htmlFor="title">Title:</label> */}
           <h1>New Note:</h1>
@@ -56,7 +56,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
             type="text"
             required
             placeholder="Add a title"
-            className="p-2 m-0"
+            className="m-0 p-2"
             ref={titleRef}
           />
           {/* <label htmlFor="content">Content:</label> */}
@@ -72,14 +72,14 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
             <button
               type="submit"
               ref={buttonRef}
-              className="self-start w-1/2 px-4 py-2 my-2 bg-green-200 rounded-md hover:bg-green-100"
+              className="self-start bg-green-200 hover:bg-green-100 my-2 px-4 py-2 rounded-md w-1/2"
               disabled={isDisabled}
             >
               Submit
             </button>
             <button
               onClick={() => setAddNote(false)}
-              className="w-1/2 px-4 py-2 my-2 bg-red-200 border rounded-md hover:bg-red-100"
+              className="bg-red-200 hover:bg-red-100 my-2 px-4 py-2 border rounded-md w-1/2"
             >
               Cancel
             </button>

@@ -196,16 +196,6 @@ margin-bottom: 2px;
 }
 
 footer {
-  border-top: solid 2px var(--buff);
-  background: white;
-  color: rgba(200, 100, 0, 0.9);
-  font-size: 1.5rem;
-  height: 30px;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  /* margin-top: 40px; */
 }
 
 @media (max-width: 640px) {
@@ -215,7 +205,8 @@ footer {
 }
 
 .header-text {
-  width: 700px;
+  width: fit-content;
+
   text-align: center;
   background: linear-gradient(
     to left,
@@ -233,7 +224,6 @@ footer {
   display: flex;
   font-family: Indie_Flower, serif;
   margin: 12px auto 0;
-  color: steelblue;
   font-size: 2rem;
   /* margin-bottom: 20px; */
   padding: 6px 0;

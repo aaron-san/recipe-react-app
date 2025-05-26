@@ -67,7 +67,7 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
     <div className="flex justify-center gap-4">
       {!addRecipe && !addNote && (
         <button
-          className="px-6 py-2 my-4 text-slate-800 border border-slate-800 active-translate-y-[1px] rounded-md shadow-md hover:bg-slate-100"
+          className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-4 px-6 py-2 border border-slate-800 rounded-xl text-slate-800 active-translate-y-[1px]"
           onClick={() => setAddRecipe(!addRecipe)}
         >
           Add Recipe
@@ -94,11 +94,11 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
       )}
 
       {addRecipe && user && (
-        <form className="flex justify-center p-5 font-bold border border-gray-300">
-          <h1 className="self-center my-2 text-3xl text-red-700 underline uppercase ">
+        <form className="flex justify-center p-5 border border-gray-300 font-bold">
+          <h1 className="self-center my-2 text-red-700 text-3xl underline uppercase">
             Add Recipe
           </h1>
-          <div className="flex items-center justify-end m-1">
+          <div className="flex justify-end items-center m-1">
             <label htmlFor="title">Title: </label>
             <input
               type="text"
@@ -111,7 +111,7 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          <div className="flex items-center justify-end m-1">
+          <div className="flex justify-end items-center m-1">
             <label htmlFor="tags">Tags:</label>
             <select
               name="tags"
@@ -128,7 +128,7 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               <option value="side-dishes">Side Dish</option>
             </select>
           </div>
-          <div className="flex items-center justify-end m-1">
+          <div className="flex justify-end items-center m-1">
             <label htmlFor="ingredients">Ingredients: </label>
             <input
               type="text"
@@ -140,19 +140,19 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               onChange={(e) => setIngredients(e.target.value)}
             />
           </div>
-          <div className="flex items-center justify-end m-1">
+          <div className="flex justify-end items-center m-1">
             <label htmlFor="instructions">Instructions: </label>
             <textarea
               type="text"
               name="instructions"
-              className="p-2 m-2 border border-blue-600 text-md w-[226px]"
+              className="m-2 p-2 border border-blue-600 w-[226px] text-md"
               required
               value={instructions}
               placeholder="[instruction1; instruction2; ...]"
               onChange={(e) => setInstructions(e.target.value)}
             />
           </div>
-          <div className="flex items-center justify-end m-1">
+          <div className="flex justify-end items-center m-1">
             <label className="" htmlFor="image">
               Image URL:
             </label>
@@ -165,16 +165,16 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               onChange={(e) => setImage(e.target.value)}
             />
           </div>
-          <div className="flex justify-center flex-nowrap">
+          <div className="flex flex-nowrap justify-center">
             <button
-              className="px-6 py-2 m-1 bg-green-400 rounded-md shadow-md hover:shadow-none"
+              className="bg-green-400 shadow-md hover:shadow-none m-1 px-6 py-2 rounded-md"
               onClick={(e) => handleAddRecipe(e)}
             >
               Submit
             </button>
             <button
               type="button"
-              className="px-6 py-2 m-1 bg-red-400 rounded-md shadow-md hover:shadow-none"
+              className="bg-red-400 shadow-md hover:shadow-none m-1 px-6 py-2 rounded-md"
               onClick={() => setAddRecipe(false)}
             >
               Cancel

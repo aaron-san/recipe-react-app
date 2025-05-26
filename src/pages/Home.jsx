@@ -47,7 +47,7 @@ function Home() {
       >
         {!addRecipe && (
           <>
-            <div className="header-text">
+            <div className="text-emerald-400 header-text">
               Classic homemade recipes from the Midwest.
             </div>
             <Popular />

@@ -7,7 +7,7 @@ This project uses react redux to manage local state and firebase firestore datab
 ## Run development server
 
 ```shell
-npm start
+npm run dev
 ```
 
 ## Deploy
