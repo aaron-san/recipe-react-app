@@ -67,7 +67,7 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
     <div className="flex justify-center gap-4">
       {!addRecipe && !addNote && (
         <button
-          className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-4 px-6 py-2 border border-slate-800 rounded-xl text-slate-800 active-translate-y-[1px]"
+          className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-4 px-6 py-2 border border-slate-800 rounded-lg text-slate-800 active-translate-y-[1px]"
           onClick={() => setAddRecipe(!addRecipe)}
         >
           Add Recipe

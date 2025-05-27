@@ -4,7 +4,7 @@ import "./index.css";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { AuthProvider } from "./contexts/AuthContext";
-import Hero from "./components/Hero";
+import Header from "./components/Header";
 
 // import "@splidejs/react-splide/css";
 import {
@@ -36,7 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <AuthProvider>
         <BrowserRouter>
-          <Hero />
+          <Header />
           {/* <AnimatePresence> */}
           {/* {console.log(currentUser)} */}
           {/* <Routes location={location} key={location.pathname}> */}

@@ -223,10 +223,6 @@ footer {
 
   display: flex;
   font-family: Indie_Flower, serif;
-  margin: 12px auto 0;
-  font-size: 2rem;
-  /* margin-bottom: 20px; */
-  padding: 6px 0;
 }
 @media (max-width: 640px) {
   .header-text {
@@ -292,4 +288,12 @@ ol {
 li::marker {
   color: hotpink;
   animation: color-change 3s ease-in-out infinite;
+}
+
+.textStroke {
+  /* -webkit-text-fill-color: #d1fae5; Will override color (regardless of order) */
+  -webkit-text-fill-color: black; /*Will override color (regardless of order)*/
+
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: white;
 }

@@ -9,12 +9,16 @@ const Note = () => {
   }, [notes]);
 
   return (
-    <section className="text-purple text-boldest bg-gradient-to-br from-green-200 via-yellow-300 to-orange-400 rounded-md w-[200px] mt-4 p-2 mx-auto">
+    <section className="relative mx-auto mt-4 p-2 border border-amber-400 rounded-md w-[200px] h-fit text-boldest text-purple">
       <div className="bg-white border-8 border-white">
-        {/* <h1>Note:</h1> */}
+        <div className="-top-2 -left-2 z-20 absolute bg-amber-200 shadow px-4 py-1 rounded text-sm">
+          Note
+        </div>
         {randNote && (
-          <div className="p-2">
-            <h1 key={randNote.id}>{randNote.title}</h1>
+          <div className="px-2 pt-8 pb-4">
+            <h1 key={randNote.id} className="text-emerald-800">
+              {randNote.title}
+            </h1>
             <p>{randNote.content}</p>
           </div>
         )}

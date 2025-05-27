@@ -4,10 +4,8 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      className="flex justify-center px-10 py-4 border-top: h-8 font-size: text-center solid 2px var(--buff); background: white; color: rgba(200, 100, 0, 0.9); 1.5rem;"
-    >
-      <div>
+    <footer className="flex justify-center bg-emerald-200 shadow px-10 py-4 border-emerald-400 border-t text-emerald-800 text-xl">
+      <div className="my-auto">
         &copy; {year} Food by the Carlson and Hardy families and friends!
       </div>
     </footer>

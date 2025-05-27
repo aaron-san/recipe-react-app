@@ -38,11 +38,11 @@ const Cuisine = () => {
   });
 
   return (
-    <div className="flex items-center justify-center gap-4 max-w-[50vw] flex-wrap my-4 mx-auto">
+    <div className="flex flex-wrap justify-center items-center gap-4 mx-auto my-4 max-w-[80vw]">
       {filteredRecipes.map((recipe) => {
         return (
           <div
-            className="flex flex-wrap items-center rounded-md hover:shadow-md"
+            className="flex flex-wrap items-center hover:shadow-md rounded-md"
             key={recipe.id}
           >
             <NavLink to={`/recipe/${recipe.id}`}>
@@ -51,9 +51,9 @@ const Cuisine = () => {
                 alt={recipe.title}
                 width="100%"
                 height="auto"
-                className="rounded-t-md h-[180px] w-[200px]"
+                className="rounded-t-md w-[200px] h-[180px]"
               />
-              <div className="w-full h-[60px] px-2 py-1 border shadow-md bg-slate-100 border-b-slate-400 rounded-b-md flex items-center justify-center">
+              <div className="flex justify-center items-center bg-emerald-100 shadow-md px-2 py-1 border border-b-emerald-400 rounded-b-md w-[200px] h-[60px] text-center">
                 <p>{recipe.title}</p>
               </div>
             </NavLink>

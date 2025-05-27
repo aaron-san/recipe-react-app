@@ -25,51 +25,44 @@ export default function Login() {
   }
 
   return (
-    <>
-      <main>
-        <section>
-          <div className="text-xl text-center mt-6">
-            <h2>Log In</h2>
-          </div>
-          {error && console.warn({ error })}
-          <form className="max-w-[400px] mx-auto" onSubmit={handleSubmit}>
-            <div className="text-right pr-8">
-              <span className="mr-2">Email:</span>
-              <input
-                type="email"
-                ref={emailRef}
-                required
-                autoComplete="email"
-              />
-            </div>
-            <div className="text-right pr-8">
-              <span className="mr-2">Password:</span>
-              <input
-                type="password"
-                ref={passwordRef}
-                required
-                autoComplete="current-password"
-              />
-            </div>
-            <button
-              disabled={loading}
-              type="submit"
-              className="bg-green-600/60 hover:bg-green-600/80 border border-green rounded-md active:scale-[98%] text-white w-fit px-4 py-2 mx-auto"
-            >
-              Log in
-            </button>
-          </form>
-          <div className="text-center text-blue-600 underline">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-        </section>
-        <div className="text-center">
-          Need an account?{" "}
-          <Link to="/signup" className="text-blue-600 underline">
-            Sign Up
-          </Link>
+    <main className="min-h-[calc(100vh-150px)]">
+      <section>
+        <div className="mt-6 text-xl text-center">
+          <h2>Log In</h2>
         </div>
-      </main>
-    </>
+        {error && console.warn({ error })}
+        <form className="mx-auto max-w-[400px]" onSubmit={handleSubmit}>
+          <div className="pr-8 text-right">
+            <span className="mr-2">Email:</span>
+            <input type="email" ref={emailRef} required autoComplete="email" />
+          </div>
+          <div className="pr-8 text-right">
+            <span className="mr-2">Password:</span>
+            <input
+              type="password"
+              ref={passwordRef}
+              required
+              autoComplete="current-password"
+            />
+          </div>
+          <button
+            disabled={loading}
+            type="submit"
+            className="bg-emerald-400 hover:bg-emerald-400/80 mx-auto px-4 py-2 border border-green rounded-xl w-fit text-white active:scale-[98%]"
+          >
+            Sign in
+          </button>
+        </form>
+        <div className="text-blue-600 text-center underline">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </div>
+      </section>
+      <div className="text-center">
+        Need an account?{" "}
+        <Link to="/signup" className="text-blue-600 underline">
+          Sign Up
+        </Link>
+      </div>
+    </main>
   );
 }

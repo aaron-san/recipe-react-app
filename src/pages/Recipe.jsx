@@ -140,17 +140,17 @@ const Recipe = () => {
   if (isLoading || !recipe) {
     return (
       <div className="flex justify-center mt-18 h-screen">
-        <div className="text-xl font-bold animate-pulse">Loading...</div>
+        <div className="mt-20 font-bold text-xl animate-pulse">Loading...</div>
       </div>
     );
   } else {
     return (
-      <div className="flex flex-col md:flex-row justify-center w-90 md:max-w-[1000px] mx-auto my-6 gap-4 mx-4">
-        <div className="flex flex-col items-center max-w-[400px] md:h-[900px] mt-4">
+      <div className="flex md:flex-row flex-col justify-center gap-8 mx-auto my-12 w-90 max-w-[95%]">
+        <div className="flex flex-col items-center max-w-[400px]">
           <img
             src={`/assets/images/${recipe.image}`}
             alt={recipe.title}
-            className="w-90 md:min-h-[300px] md:min-w-[300px] shadow-md rounded-lg border-8 border-emerald-200"
+            className="shadow-lg border-4 border-emerald-400 rounded-lg w-90 md:min-w-[300px] md:min-h-[300px]"
           />
           {!editTitle && (
             <div className="flex justify-center gap-2 mt-2">
@@ -164,11 +164,13 @@ const Recipe = () => {
               </button>
             </div>
           )}
+          <div className="mt-20"></div>
+          <Note />
 
           {editTitle && user && (
             <div className="flex items-center mt-4">
               <textarea
-                className="w-full p-2 border-2 border-blue-400 rounded-md"
+                className="p-2 border-2 border-blue-400 rounded-md w-full"
                 defaultValue={recipe.title}
                 rows={1}
                 cols={30}
@@ -177,7 +179,7 @@ const Recipe = () => {
               <button
                 onClick={handleUpdateTitle}
                 type="submit"
-                className="bg-green-200 rounded-md shadow-md hover:shadow-none px-3 py-1 ml-2 h-10"
+                className="bg-green-200 shadow-md hover:shadow-none ml-2 px-3 py-1 rounded-md h-10"
               >
                 Save
               </button>
@@ -189,14 +191,14 @@ const Recipe = () => {
             <h2>Instructions</h2>
             {!editInstructions && user && (
               <button
-                className="p-2 opacity-30 h-fit hover:shadow-sm hover:opacity-100 rounded-full"
+                className="opacity-30 hover:opacity-100 hover:shadow-sm p-2 rounded-full h-fit"
                 onClick={() => setEditInstructions(true)}
               >
                 <MdOutlineModeEdit />
               </button>
             )}
           </div>
-          <div className="flex items-center justify-between mb-8 lg:w-[400px]">
+          <div className="flex justify-between items-center mb-8 lg:w-[400px]">
             <ol>
               {recipe.instructions &&
                 recipe.instructions.map((item) => (
@@ -210,16 +212,16 @@ const Recipe = () => {
               {editInstructions && user && (
                 <li className="flex flex-row flex-wrap max-w-[400px]">
                   <textarea
-                    className="w-full p-2 border-2 border-blue-400 mt-4 rounded-md"
+                    className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
                     rows={4}
                     cols={40}
                     defaultValue={recipe.instructions.join("\n")}
                     onChange={(e) => setInstructions(e.target.value)}
                   />
-                  <div className="flex flex-row gap-2 justify-around w-full">
+                  <div className="flex flex-row justify-around gap-2 w-full">
                     <button
                       type="button"
-                      className="bg-green-200 w-1/2 rounded-md shadow-md hover:shadow-none px-3 py-1 my-2 ml-0"
+                      className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
                       onClick={() => {
                         updateInstructions(recipe.id, instructions);
                       }}
@@ -227,7 +229,7 @@ const Recipe = () => {
                       Submit
                     </button>
                     <button
-                      className="bg-red-200 w-1/2 rounded-md shadow-md hover:shadow-none px-3 py-1 my-2"
+                      className="bg-red-200 shadow-md hover:shadow-none my-2 px-3 py-1 rounded-md w-1/2"
                       onClick={() => setEditInstructions(false)}
                     >
                       Cancel
@@ -242,7 +244,7 @@ const Recipe = () => {
             <h2>Ingredients</h2>
           </div>
 
-          <div className="flex items-center  border-transparent justify-between mb-8 w-[400px]">
+          <div className="flex justify-between items-center mb-8 border-transparent w-[400px]">
             <ul
               className={`flex flex-col gap-1 ${
                 !user ? "cursor-auto" : "cursor-pointer"
@@ -275,7 +277,7 @@ const Recipe = () => {
               {editIngredients && user && (
                 <li className="flex flex-row flex-wrap max-w-[400px]">
                   <textarea
-                    className="w-full p-2 border-2 border-blue-400 mt-4 rounded-md"
+                    className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
                     rows={recipe.ingredients.length + 1}
                     // cols={40}
                     defaultValue={recipe.ingredients.join("\n") + "\n"}
@@ -283,16 +285,16 @@ const Recipe = () => {
                     autoFocus
                   />
 
-                  <div className="flex flex-row gap-2 justify-around w-full">
+                  <div className="flex flex-row justify-around gap-2 w-full">
                     <button
                       type="submit"
-                      className="bg-green-200 w-1/2 rounded-md shadow-md hover:shadow-none px-3 py-1 my-2 ml-0"
+                      className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
                       onClick={handleUpdateIngredients}
                     >
                       Submit
                     </button>
                     <button
-                      className="bg-red-200 w-1/2 rounded-md shadow-md hover:shadow-none px-3 py-1 my-2"
+                      className="bg-red-200 shadow-md hover:shadow-none my-2 px-3 py-1 rounded-md w-1/2"
                       onClick={() => setEditIngredients(false)}
                     >
                       Cancel
@@ -304,15 +306,13 @@ const Recipe = () => {
           </div>
           {!editIngredients && user && (
             <button
-              className="p-1 mt-20 text-red-400 border border-red-300 rounded-full opacity-30 hover:opacity-100 active:translate-y-[1px]"
+              className="opacity-30 hover:opacity-100 mt-20 p-1 border border-red-300 rounded-full text-red-400 active:translate-y-[1px]"
               onClick={() => handleDelete(recipe.id)}
             >
               Delete Recipe
             </button>
           )}
         </div>
-
-        <Note />
       </div>
 
       //   // {recipeData.map((recipe) => {
