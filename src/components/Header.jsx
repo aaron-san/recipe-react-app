@@ -47,15 +47,15 @@ export default function Header() {
 
   return (
     <div className="flex justify-between hero-container">
-      <div className="flex gap-2">
+      <div className="flex items-center gap-1 md:gap-2">
         <button
-          className="hover:opacity-95 my-auto ml-4 w-[40px] h-[40px] text-emerald-50 text-2xl"
+          className="hover:opacity-95 my-auto ml-2 w-[40px] h-[40px] text-emerald-50 text-2xl"
           onClick={() => setShowMenu(true)}
         >
           &#x2630;
         </button>
         <NavLink to="/">
-          <h2 className="text-shadow text-[2rem] text-emerald-50 tracking-wider">
+          <h2 className="text-shadow text-emerald-50 md:text-[2rem] tracking-wider">
             Recipe App
           </h2>
         </NavLink>
@@ -67,7 +67,7 @@ export default function Header() {
       <div className="flex flex-wrap">
         {!user && (
           <NavLink
-            className="bg-emerald-500 hover:bg-emerald-500/90 shadow-md my-auto mr-4 px-2 py-1 border border-white rounded-r-md w-fit min-w-[80px] h-fit text-slate-50 text-center active:active:scale-[98%]"
+            className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-auto mr-2 px-1 py-1 border border-white rounded-md w-fit h-fit text-slate-50 text-sm text-center active:active:scale-[98%]"
             to={"/login"}
           >
             <div>Sign In</div>

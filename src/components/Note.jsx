@@ -9,9 +9,9 @@ const Note = () => {
   }, [notes]);
 
   return (
-    <section className="relative mx-auto mt-4 p-2 border border-amber-400 rounded-md w-[200px] h-fit text-boldest text-purple">
-      <div className="bg-white border-8 border-white">
-        <div className="-top-2 -left-2 z-20 absolute bg-amber-200 shadow px-4 py-1 rounded text-sm">
+    <section className="relative bg-amber-100 mx-auto my-4 mt-4 p-2 border border-amber-400 rounded-md min-w-[200px] max-w-[600px] h-fit text-boldest text-purple">
+      <div className="bg-amber-50">
+        <div className="-top-2 -left-2 z-20 absolute bg-amber-200 shadow px-4 py-1 border border-amber-400 rounded text-amber-600 text-sm">
           Note
         </div>
         {randNote && (

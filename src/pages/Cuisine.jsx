@@ -51,9 +51,9 @@ const Cuisine = () => {
                 alt={recipe.title}
                 width="100%"
                 height="auto"
-                className="rounded-t-md w-[200px] h-[180px]"
+                className="rounded-t-md w-[140px] md:w-[200px] h-[126px] md:h-[180px]"
               />
-              <div className="flex justify-center items-center bg-emerald-100 shadow-md px-2 py-1 border border-b-emerald-400 rounded-b-md w-[200px] h-[60px] text-center">
+              <div className="flex justify-center items-center bg-amber-100 shadow-md px-2 py-1 border border-b-emerald-400 rounded-b-md w-[140px] md:w-[200px] h-[60px] text-center">
                 <p>{recipe.title}</p>
               </div>
             </NavLink>

@@ -145,174 +145,175 @@ const Recipe = () => {
     );
   } else {
     return (
-      <div className="flex md:flex-row flex-col justify-center gap-8 mx-auto my-12 w-90 max-w-[95%]">
-        <div className="flex flex-col items-center max-w-[400px]">
-          <img
-            src={`/assets/images/${recipe.image}`}
-            alt={recipe.title}
-            className="shadow-lg border-4 border-emerald-400 rounded-lg w-90 md:min-w-[300px] md:min-h-[300px]"
-          />
-          {!editTitle && (
-            <div className="flex justify-center gap-2 mt-2">
-              <button
-                onClick={() => user && setEditTitle(true)}
-                className={`p-2 h-fit rounded-sm ${
+      <div>
+        <div className="flex md:flex-row flex-col justify-center gap-8 mx-auto my-12 w-90 max-w-[95%]">
+          <div className="flex flex-col items-center max-w-[400px]">
+            <div className="rounded">
+              <img
+                src={`/assets/images/${recipe.image}`}
+                alt={recipe.title}
+                className="shadow-xl border-8 border-white rounded-lg w-90 md:min-w-[300px] md:min-h-[300px]"
+              />
+            </div>
+            {!editTitle && (
+              <div className="flex justify-center gap-2 mt-2">
+                <button
+                  onClick={() => user && setEditTitle(true)}
+                  className={`p-2 h-fit rounded-sm ${
+                    !user ? "cursor-auto" : "cursor-pointer"
+                  }`}
+                >
+                  <h1>{recipe.title}</h1>
+                </button>
+              </div>
+            )}
+            <div className="mt-20"></div>
+
+            {editTitle && user && (
+              <div className="flex items-center mt-4">
+                <textarea
+                  className="p-2 border-2 border-blue-400 rounded-md w-full"
+                  defaultValue={recipe.title}
+                  rows={1}
+                  cols={30}
+                  ref={titleRef}
+                />
+                <button
+                  onClick={handleUpdateTitle}
+                  type="submit"
+                  className="bg-green-200 shadow-md hover:shadow-none ml-2 px-3 py-1 rounded-md h-10"
+                >
+                  Save
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="">
+            <h2 className="mb-4">Ingredients</h2>
+
+            <div className="flex justify-between items-center mb-8 border-transparent w-full">
+              <ul
+                className={`flex flex-col ${
                   !user ? "cursor-auto" : "cursor-pointer"
                 }`}
+                onClick={() =>
+                  user && !editIngredients && setEditIngredients(true)
+                }
               >
-                <h1>{recipe.title}</h1>
-              </button>
-            </div>
-          )}
-          <div className="mt-20"></div>
-          <Note />
+                {!editIngredients &&
+                  recipe.ingredients?.map((item, id) => (
+                    <div className="flex gap-2" key={item}>
+                      <div className="flex pt-1.5 text-pink-400 text-xl">
+                        <BiSolidRightArrowAlt />
+                      </div>
+                      <IngredientItem
+                        recipe={recipe}
+                        ingredient={item}
+                        ingredientItemId={id}
+                        className="w-fit"
+                      >
+                        {item}
+                      </IngredientItem>
+                    </div>
+                  ))}
 
-          {editTitle && user && (
-            <div className="flex items-center mt-4">
-              <textarea
-                className="p-2 border-2 border-blue-400 rounded-md w-full"
-                defaultValue={recipe.title}
-                rows={1}
-                cols={30}
-                ref={titleRef}
-              />
-              <button
-                onClick={handleUpdateTitle}
-                type="submit"
-                className="bg-green-200 shadow-md hover:shadow-none ml-2 px-3 py-1 rounded-md h-10"
-              >
-                Save
-              </button>
+                {editIngredients && !user && <SignIn />}
+
+                {editIngredients && user && (
+                  <li className="flex flex-row flex-wrap max-w-[400px]">
+                    <textarea
+                      className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
+                      rows={recipe.ingredients.length + 1}
+                      // cols={40}
+                      defaultValue={recipe.ingredients.join("\n") + "\n"}
+                      ref={ingredientsRef}
+                      autoFocus
+                    />
+
+                    <div className="flex flex-row justify-around gap-2 w-full">
+                      <button
+                        type="submit"
+                        className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
+                        onClick={handleUpdateIngredients}
+                      >
+                        Submit
+                      </button>
+                      <button
+                        className="bg-red-200 shadow-md hover:shadow-none my-2 px-3 py-1 rounded-md w-1/2"
+                        onClick={() => setEditIngredients(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </li>
+                )}
+              </ul>
             </div>
-          )}
-        </div>
-        <div className="">
-          <div className="flex items-center gap-4 mb-4">
-            <h2>Instructions</h2>
-            {!editInstructions && user && (
+
+            <div className="flex items-center gap-4 mb-4">
+              <h2>Instructions</h2>
+              {!editInstructions && user && (
+                <button
+                  className="opacity-30 hover:opacity-100 hover:shadow-sm p-2 rounded-full h-fit"
+                  onClick={() => setEditInstructions(true)}
+                >
+                  <MdOutlineModeEdit />
+                </button>
+              )}
+            </div>
+            <div className="flex justify-between items-center mb-8 lg:w-[400px]">
+              <ol>
+                {recipe.instructions &&
+                  recipe.instructions.map((item) => (
+                    <li key={item} className="ml-6 py-1">
+                      <span>{item}</span>
+                    </li>
+                  ))}
+
+                {/* Edit instructions mode */}
+                {editInstructions && !user && <SignIn />}
+                {editInstructions && user && (
+                  <li className="flex flex-row flex-wrap max-w-[400px]">
+                    <textarea
+                      className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
+                      rows={4}
+                      cols={40}
+                      defaultValue={recipe.instructions.join("\n")}
+                      onChange={(e) => setInstructions(e.target.value)}
+                    />
+                    <div className="flex flex-row justify-around gap-2 w-full">
+                      <button
+                        type="button"
+                        className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
+                        onClick={() => {
+                          updateInstructions(recipe.id, instructions);
+                        }}
+                      >
+                        Submit
+                      </button>
+                      <button
+                        className="bg-red-200 shadow-md hover:shadow-none my-2 px-3 py-1 rounded-md w-1/2"
+                        onClick={() => setEditInstructions(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </li>
+                )}
+              </ol>
+            </div>
+
+            {!editIngredients && user && (
               <button
-                className="opacity-30 hover:opacity-100 hover:shadow-sm p-2 rounded-full h-fit"
-                onClick={() => setEditInstructions(true)}
+                className="opacity-30 hover:opacity-100 mt-20 p-1 border border-red-300 rounded-full text-red-400 active:translate-y-[1px]"
+                onClick={() => handleDelete(recipe.id)}
               >
-                <MdOutlineModeEdit />
+                Delete Recipe
               </button>
             )}
           </div>
-          <div className="flex justify-between items-center mb-8 lg:w-[400px]">
-            <ol>
-              {recipe.instructions &&
-                recipe.instructions.map((item) => (
-                  <li key={item} className="ml-6">
-                    <span>{item}</span>
-                  </li>
-                ))}
-
-              {/* Edit instructions mode */}
-              {editInstructions && !user && <SignIn />}
-              {editInstructions && user && (
-                <li className="flex flex-row flex-wrap max-w-[400px]">
-                  <textarea
-                    className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
-                    rows={4}
-                    cols={40}
-                    defaultValue={recipe.instructions.join("\n")}
-                    onChange={(e) => setInstructions(e.target.value)}
-                  />
-                  <div className="flex flex-row justify-around gap-2 w-full">
-                    <button
-                      type="button"
-                      className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
-                      onClick={() => {
-                        updateInstructions(recipe.id, instructions);
-                      }}
-                    >
-                      Submit
-                    </button>
-                    <button
-                      className="bg-red-200 shadow-md hover:shadow-none my-2 px-3 py-1 rounded-md w-1/2"
-                      onClick={() => setEditInstructions(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </li>
-              )}
-            </ol>
-          </div>
-
-          <div className="flex items-center gap-4 mb-4">
-            <h2>Ingredients</h2>
-          </div>
-
-          <div className="flex justify-between items-center mb-8 border-transparent w-[400px]">
-            <ul
-              className={`flex flex-col gap-1 ${
-                !user ? "cursor-auto" : "cursor-pointer"
-              }`}
-              onClick={() =>
-                user && !editIngredients && setEditIngredients(true)
-              }
-            >
-              {!editIngredients &&
-                recipe.ingredients?.map((item, id) => (
-                  <div className="flex gap-2" key={item}>
-                    <div className="flex pt-3 text-pink-400">
-                      <BiSolidRightArrowAlt />
-                    </div>
-                    <IngredientItem
-                      recipe={recipe}
-                      ingredient={item}
-                      ingredientItemId={id}
-                      // editIngredient={editIngredient}
-                      // setEditIngredient={setEditIngredient}
-                      className="w-fit"
-                    >
-                      {item}
-                    </IngredientItem>
-                  </div>
-                ))}
-
-              {editIngredients && !user && <SignIn />}
-
-              {editIngredients && user && (
-                <li className="flex flex-row flex-wrap max-w-[400px]">
-                  <textarea
-                    className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
-                    rows={recipe.ingredients.length + 1}
-                    // cols={40}
-                    defaultValue={recipe.ingredients.join("\n") + "\n"}
-                    ref={ingredientsRef}
-                    autoFocus
-                  />
-
-                  <div className="flex flex-row justify-around gap-2 w-full">
-                    <button
-                      type="submit"
-                      className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
-                      onClick={handleUpdateIngredients}
-                    >
-                      Submit
-                    </button>
-                    <button
-                      className="bg-red-200 shadow-md hover:shadow-none my-2 px-3 py-1 rounded-md w-1/2"
-                      onClick={() => setEditIngredients(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </li>
-              )}
-            </ul>
-          </div>
-          {!editIngredients && user && (
-            <button
-              className="opacity-30 hover:opacity-100 mt-20 p-1 border border-red-300 rounded-full text-red-400 active:translate-y-[1px]"
-              onClick={() => handleDelete(recipe.id)}
-            >
-              Delete Recipe
-            </button>
-          )}
         </div>
+        <Note />
       </div>
 
       //   // {recipeData.map((recipe) => {
