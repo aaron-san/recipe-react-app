@@ -31,11 +31,18 @@ const Cuisine = () => {
 
   // const recipes = useSelector((state) => state.recipes.value);
 
-  const { data: recipes, error, isLoading } = useFetchRecipesQuery();
+  const {
+    data: recipes = [],
+    error,
+    isLoading,
+    isSuccess,
+  } = useFetchRecipesQuery();
 
-  const filteredRecipes = recipes.filter((recipe) => {
-    return recipe.tag?.split(";").includes(params.type);
-  });
+  const filteredRecipes = recipes.filter(
+    (recipe) =>
+      Array.isArray(recipe.tags) &&
+      recipe.tags.some((tag) => tag.trim().includes(params.type))
+  );
 
   return (
     <div className="flex flex-wrap justify-center items-center gap-4 mx-auto my-4 max-w-[80vw]">

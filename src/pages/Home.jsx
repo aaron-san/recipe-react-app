@@ -38,7 +38,7 @@ function Home() {
   // const recipes = useSelector((state) => state.recipes.value);
 
   return (
-    <div className="home-container">
+    <div className="bg-gradient-to-b from-slate-600 to-slate-400 min-h-[calc(100vh-120px)]">
       <motion.div
         className="flex flex-col gap-2"
         initial={{ opacity: 0 }}
@@ -47,8 +47,13 @@ function Home() {
       >
         {!addRecipe && (
           <>
-            <div className="mx-auto mt-16 text-slate-800 text-xl header-text">
-              Classic homemade recipes from the Midwest.
+            <div className="flex flex-wrap justify-center items-center mx-auto max-w-[280px] header-text">
+              <div className="mt-16 text-slate-100 text-2xl">
+                Classic homemade recipes
+              </div>
+              <div className="text-emerald-300 text-base">
+                from the Midwest.
+              </div>
             </div>
             <Popular />
           </>

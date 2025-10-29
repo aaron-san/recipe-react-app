@@ -15,8 +15,7 @@ import {
 // import { useAuth } from "../../contexts/AuthContext";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// import { auth } from "../";
-
+// Redux Toolkit Query API for Recipes
 export const recipesApi = createApi({
   reducerPath: "recipes",
   baseQuery: fakeBaseQuery(),
@@ -29,7 +28,11 @@ export const recipesApi = createApi({
           const querySnapshot = await getDocs(recipesRef);
           let recipes = [];
           querySnapshot?.forEach((doc) => {
-            recipes.push({ id: doc.id, ...doc.data() });
+            recipes.push({
+              id: doc.id,
+              ...doc.data(),
+              timeStamp: doc.data().timeStamp?.toDate().toISOString(), // sanitize the Firestore data
+            });
           });
           return { data: recipes };
         } catch (error) {
@@ -44,7 +47,13 @@ export const recipesApi = createApi({
         try {
           const docRef = doc(db, "recipes", id);
           const snapShot = await getDoc(docRef);
-          return { data: snapShot.data() };
+
+          const rawData = snapShot.data();
+          const data = {
+            ...rawData,
+            timeStamp: rawData?.timeStamp?.toDate()?.toISOString() ?? null,
+          };
+          return { data };
         } catch (error) {
           console.error(error.message);
           return { error: error.message };
@@ -52,33 +61,35 @@ export const recipesApi = createApi({
       },
       providesTags: ["Recipes"],
     }),
-    // addRecipe: builder.mutation({
-    //   async queryFn({ newRecipe }) {
-    //     try {
-    //       await addDoc(collection(db, "recipes"), {
-    //         ...newRecipe,
-    //         timeStamp: serverTimestamp(),
-    //       });
-    //       return { data: "ok" };
-    //     } catch (error) {
-    //       console.error(error.message);
-    //       return { error: error.message };
-    //     }
-    //   },
-    //   invalidatesTags: ["Recipes"],
-    // }),
-    // deleteRecipe: builder.mutation({
-    //   async queryFun(id) {
-    //     try {
-    //       await deleteDoc(doc(db, "recipes", id));
-    //       return { data: "ok" };
-    //     } catch (err) {
-    //       console.log(err.message);
-    //       return { error: err.message };
-    //     }
-    //   },
-    //   invalidatesTags: ["Recipes"],
-    // }),
+
+    addRecipe: builder.mutation({
+      async queryFn({ newRecipe }) {
+        try {
+          await addDoc(collection(db, "recipes"), {
+            ...newRecipe,
+            timeStamp: serverTimestamp(),
+          });
+          console.log(newRecipe);
+          return { data: "ok" };
+        } catch (error) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Recipes"],
+    }),
+    deleteRecipe: builder.mutation({
+      async queryFn(id) {
+        try {
+          await deleteDoc(doc(db, "recipes", id));
+          return { data: "ok" };
+        } catch (err) {
+          console.log(err.message);
+          return { error: err.message };
+        }
+      },
+      invalidatesTags: ["Recipes"],
+    }),
     // updateRecipe: builder.mutation({
     //   async queryFn({ id, data }) {
     //     try {
@@ -99,7 +110,6 @@ export const recipesApi = createApi({
       queryFn: async ({ recipeId, newIngredients }) => {
         try {
           const docRef = doc(db, "recipes", recipeId);
-          if (!docRef) return new Error("No doc ref!");
 
           await updateDoc(docRef, {
             ingredients: newIngredients,
@@ -120,10 +130,26 @@ export const recipesApi = createApi({
       queryFn: async ({ recipeId, newTitle }) => {
         try {
           const docRef = doc(db, "recipes", recipeId);
-          if (!docRef) return new Error("No doc ref!");
 
           await updateDoc(docRef, {
             title: newTitle,
+          });
+
+          return { data: null };
+        } catch (error) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Recipes"],
+    }),
+    updateInstructions: builder.mutation({
+      queryFn: async ({ recipeId, newInstructions }) => {
+        try {
+          const docRef = doc(db, "recipes", recipeId);
+
+          await updateDoc(docRef, {
+            instructions: newInstructions,
           });
 
           return { data: null };
@@ -140,10 +166,11 @@ export const recipesApi = createApi({
 export const {
   useFetchRecipesQuery,
   useFetchRecipeQuery,
-  // useAddRecipeMutation,
-  // useDeleteRecipeMutation,
+  useAddRecipeMutation,
+  useDeleteRecipeMutation,
   // useAddIngredientMutation,
   useUpdateIngredientsMutation,
+  useUpdateInstructionsMutation,
   useUpdateTitleMutation,
 } = recipesApi;
 

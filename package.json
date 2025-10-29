@@ -2,6 +2,11 @@
   "name": "recipe-react-app",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "set PORT=3006 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -33,11 +38,6 @@
     "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "dev": "set PORT=3006 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

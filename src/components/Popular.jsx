@@ -16,7 +16,7 @@ function Popular() {
       {error && <div>Error !!</div>}
       {isLoading && <div className="h-[280px]">Loading ...</div>}
       {recipes && (
-        <div className="flex gap-2 shadow-md border-2 border-emerald-400 border-opacity-80 rounded-md w-90 h-[280px] overflow-x-scroll snap-x no-wrap no-scrollbar">
+        <div className="flex gap-2 shadow-md border-2 border-emerald-400 border-opacity-80 rounded-xl w-90 overflow-x-scroll snap-x no-wrap no-scrollbar">
           {recipes?.map((recipe) => {
             return (
               <Link
@@ -25,7 +25,7 @@ function Popular() {
                 className="snap-center"
               >
                 <img
-                  className="shadow-md border border-orange-300 min-w-[300px] h-[260px]"
+                  className="shadow-md min-w-[200px] h-[200px]"
                   src={"assets/images/" + recipe.image}
                   alt={recipe.title}
                   // key={recipe.id}

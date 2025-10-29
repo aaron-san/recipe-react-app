@@ -20,11 +20,6 @@
     url("../public/assets/fonts/IndieFlower-Regular.ttf") format("truetype");
 }
 
-.App {
-  /* max-width: 99%; */
-  /* margin: 2px; */
-  padding: 0;
-}
 body {
   /* display: flex; */
   /* flex-direction: column; */
@@ -205,7 +200,7 @@ footer {
 }
 
 .header-text {
-  width: fit-content;
+  /* width: fit-content;
 
   text-align: center;
   background: linear-gradient(
@@ -221,7 +216,7 @@ footer {
   background-size: 100% 2px;
   background-repeat: repeat-x;
 
-  display: flex;
+  display: flex; */
   font-family: Indie_Flower, serif;
 }
 @media (max-width: 640px) {
@@ -252,7 +247,8 @@ form {
   box-shadow: 0 0 0.1 0 black;
 }
 
-input {
+input,
+select {
   padding: 0.5rem;
   border: 1px solid blue;
   margin: 0.5rem;

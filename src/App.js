@@ -60,11 +60,7 @@ function App() {
   // }, [dispatch]);
 
   // const location = useLocation();
-  return (
-    <div className="App">
-      <div className="flex flex-col justify-between min-h-screen ">App</div>
-    </div>
-  );
+  return <div className="flex flex-col justify-between min-h-screen ">App</div>;
 }
 
 export default App;

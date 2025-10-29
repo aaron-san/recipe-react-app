@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import { nanoid } from "nanoid";
+import { useState } from "react";
 // import { addRecipeRedux } from "../features/recipes/slices/recipesSlice";
 // Authentication
 // import { getAuth } from "firebase/auth";
 // import { auth } from "../config/firebase";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-// import { useAddNewRecipeMutation } from "../features/recipes/recipesApi";
-
-// const res = await cityRef.update({capital: true});
+import { useAddRecipeMutation } from "../features/recipes/recipesApi";
 
 const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
-  // const [addNewRecipe, { isLoading }] = useAddNewRecipeMutation();
+  const [addNewRecipe, { isLoading }] = useAddRecipeMutation();
   const { user } = useAuth();
 
   // "id": "chickenTenders",
@@ -21,42 +18,41 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
   // "instructions": "Mix all raw ingredients; Dip in beaten egg batter; Cover in bread crumbs; Bake for 15 minutes at 400°F.",
   // "image": "tomatoSoup.png"
 
-  const [title, setTitle] = useState("");
-  const [tags, setTags] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [instructions, setInstructions] = useState([]);
-  const [image, setImage] = useState("");
-
-  // const [addRecipe, setAddRecipe] = useState(false);
-
-  // const dispatch = useDispatch();
-  // const recipes = useSelector((state) => state.recipes.value);
+  const initRecipeInput = {
+    title: "",
+    tags: [],
+    ingredients: [],
+    instructions: [],
+    imageUrl: "",
+  };
+  const [recipeInput, setRecipeInput] = useState(initRecipeInput);
 
   const handleAddRecipe = async (e) => {
     // Prevent server submission
     e.preventDefault();
 
     const newRecipe = {
-      id: nanoid(),
-      title,
-      tags,
-      ingredients: formatStringToArray(ingredients),
-      instructions: formatStringToArray(instructions),
-      image,
+      title: recipeInput.title,
+      tags: recipeInput.tags.map((tag) => tag.trim().toLowerCase()),
+      ingredients: formatStringToArray(recipeInput.ingredients),
+      instructions: formatStringToArray(recipeInput.instructions),
+      image: recipeInput.imageUrl,
     };
-    // await addNewRecipe(newRecipe);
-    // await setDoc(doc(db, "recipes", newRecipe.id), newRecipe);
+    console.log("newRecipe", newRecipe);
+    try {
+      await addNewRecipe({ newRecipe }).unwrap();
+      setRecipeInput(initRecipeInput);
+      setAddRecipe(false);
+      // show success or reset form
+    } catch (err) {
+      console.error("Failed to add recipe:", err);
+    }
 
-    setTitle("");
-    setTags([]);
-    setIngredients([]);
-    setInstructions([]);
-    setImage("");
-    setAddRecipe(false);
+    // await setDoc(doc(db, "recipes", newRecipe.id), newRecipe);
   };
-  //   console.log("Form - recipes length:", recipes.length);
 
   function formatStringToArray(str) {
+    if (typeof str !== "string") return [];
     return str
       .split(";")
       .map((el) => el.trim())
@@ -67,7 +63,7 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
     <div className="flex justify-center gap-4">
       {!addRecipe && !addNote && (
         <button
-          className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-4 px-6 py-2 border border-slate-800 rounded-lg text-slate-800 active-translate-y-[1px]"
+          className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-4 px-4 py-1 border border-slate-800 rounded-full text-slate-800 active-translate-y-[1px]"
           onClick={() => setAddRecipe(!addRecipe)}
         >
           Add Recipe
@@ -94,7 +90,10 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
       )}
 
       {addRecipe && user && (
-        <form className="flex justify-center p-5 border border-gray-300 font-bold">
+        <form
+          onSubmit={handleAddRecipe}
+          className="flex justify-center p-5 border border-gray-300 font-bold"
+        >
           <h1 className="self-center my-2 text-red-700 text-3xl underline uppercase">
             Add Recipe
           </h1>
@@ -106,26 +105,30 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               className="text-md"
               autoFocus
               required
-              value={title}
+              value={recipeInput.title}
               placeholder="Title..."
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) =>
+                setRecipeInput({ ...recipeInput, title: e.target.value })
+              }
             />
           </div>
           <div className="flex justify-end items-center m-1">
             <label htmlFor="tags">Tags:</label>
             <select
               name="tags"
-              className="text-md"
-              value={tags}
+              className="mr-2 ml-2 h-12 overflow-none text-md"
+              value={recipeInput.tags}
               onChange={(e) => {
                 const options = [...e.target.selectedOptions];
                 const values = options.map((option) => option.value);
-                setTags(values);
+                setRecipeInput({ ...recipeInput, tags: values });
               }}
               multiple={true}
             >
               <option value="main-dishes">Main Dish</option>
               <option value="side-dishes">Side Dish</option>
+              <option value="side-dishes">Condiment</option>
+              <option value="side-dishes">Dessert</option>
             </select>
           </div>
           <div className="flex justify-end items-center m-1">
@@ -135,9 +138,12 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               name="ingredients"
               className="text-md"
               required
-              value={ingredients}
+              value={recipeInput.ingredients}
               placeholder="rice; potatoes; ..."
-              onChange={(e) => setIngredients(e.target.value)}
+              // onChange={(e) => setIngredients(e.target.value)}
+              onChange={(e) =>
+                setRecipeInput({ ...recipeInput, ingredients: e.target.value })
+              }
             />
           </div>
           <div className="flex justify-end items-center m-1">
@@ -147,9 +153,11 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               name="instructions"
               className="m-2 p-2 border border-blue-600 w-[226px] text-md"
               required
-              value={instructions}
+              value={recipeInput.instructions}
               placeholder="[instruction1; instruction2; ...]"
-              onChange={(e) => setInstructions(e.target.value)}
+              onChange={(e) =>
+                setRecipeInput({ ...recipeInput, instructions: e.target.value })
+              }
             />
           </div>
           <div className="flex justify-end items-center m-1">
@@ -160,15 +168,17 @@ const FormRecipe = ({ addRecipe, setAddRecipe, addNote }) => {
               type="text"
               name="image"
               className="text-md"
-              value={image}
+              value={recipeInput.imageUrl}
               placeholder="Image URL..."
-              onChange={(e) => setImage(e.target.value)}
+              onChange={(e) =>
+                setRecipeInput({ ...recipeInput, imageUrl: e.target.value })
+              }
             />
           </div>
           <div className="flex flex-nowrap justify-center">
             <button
+              type="submit"
               className="bg-green-400 shadow-md hover:shadow-none m-1 px-6 py-2 rounded-md"
-              onClick={(e) => handleAddRecipe(e)}
             >
               Submit
             </button>

@@ -39,7 +39,7 @@ const AddNote = ({ addNote, setAddNote, addRecipe }) => {
         <div className="flex justify-center">
           <button
             onClick={() => setAddNote(true)}
-            className="bg-amber-400 hover:bg-amber-400/90 shadow-md my-4 px-6 py-2 border border-slate-800 rounded-lg text-slate-800 active-translate-y-[1px]"
+            className="bg-amber-400 hover:bg-amber-400/90 shadow-md my-4 px-4 py-1 border border-slate-800 rounded-full text-slate-800 active-translate-y-[1px]"
           >
             Add Note
           </button>

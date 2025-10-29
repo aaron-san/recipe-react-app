@@ -67,7 +67,7 @@ export default function Header() {
       <div className="flex flex-wrap">
         {!user && (
           <NavLink
-            className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-auto mr-2 px-1 py-1 border border-white rounded-md w-fit h-fit text-slate-50 text-sm text-center active:active:scale-[98%]"
+            className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-auto mr-2 px-2 py-1 border border-white rounded-full w-fit h-fit text-slate-50 text-sm text-center active:active:scale-[98%]"
             to={"/login"}
           >
             <div>Sign In</div>
@@ -76,7 +76,7 @@ export default function Header() {
         {user && (
           <div className="flex flex-wrap justify-end items-center gap-4">
             <button
-              className="bg-red-500/80 hover:bg-red-500/100 shadow-md mr-4 p-2 border border-white rounded-lg w-fit min-w-[80px] h-fit text-white text-center active:scale-[98%]"
+              className="bg-red-500/80 hover:bg-red-500/100 shadow-md mr-4 px-2 py-1 border border-white rounded-full w-fit min-w-[80px] h-fit text-white text-center active:scale-[98%]"
               onClick={handleLogOut}
             >
               Sign out

@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 // import styled from "styled-components";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import React from "react";
 import SignIn from "../components/SignIn";
 import Note from "../components/Note";
 // import recipes from "../data/recipes.json";
@@ -22,7 +21,9 @@ import {
 import {
   useFetchRecipeQuery,
   useUpdateIngredientsMutation,
+  useUpdateInstructionsMutation,
   useUpdateTitleMutation,
+  useDeleteRecipeMutation,
 } from "../features/recipes/recipesApi";
 // import { auth } from "../config/firebase";
 import { useAuth } from "../contexts/AuthContext";
@@ -40,6 +41,7 @@ const Recipe = () => {
   const { recipeId } = params;
 
   const ingredientsRef = useRef();
+  const instructionsRef = useRef();
   const titleRef = useRef();
   const imageRef = useRef();
 
@@ -51,17 +53,26 @@ const Recipe = () => {
     error,
   } = useFetchRecipeQuery(recipeId);
 
+  const [deleteRecipe, { isLoading: isDeleting }] = useDeleteRecipeMutation();
+
   const [updateTitle] = useUpdateTitleMutation();
   const [updateIngredients] = useUpdateIngredientsMutation();
+  const [updateInstructions] = useUpdateInstructionsMutation();
 
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [instructions, setInstructions] = useState("");
+  const initRecipeInput = {
+    title: "",
+    tags: [],
+    ingredients: [],
+    instructions: "",
+    imageUrl: "",
+  };
+  const [recipeInput, setRecipeInput] = useState(initRecipeInput);
+
   const [editInstructions, setEditInstructions] = useState(false);
-  // const [ingredients, setIngredients] = useState([]);
   const [editIngredients, setEditIngredients] = useState(false);
-  const [href, setHref] = useState("");
   const [editHref, setEditHref] = useState(false);
   const [editTitle, setEditTitle] = useState(false);
 
@@ -69,14 +80,9 @@ const Recipe = () => {
     if (id === null) return;
     const response = prompt("Please type 'DELETE' to delete.");
     if (response === "DELETE") {
-      // dispatch(deleteRecipeRedux({ id }));
+      await deleteRecipe(id);
       navigate("/");
     }
-  };
-
-  const updateInstructions = async (id, value) => {
-    // dispatch(updateInstructionsRedux({ id, instructions: value }));
-    setEditInstructions(false);
   };
 
   const updateHref = async (id, value) => {
@@ -135,6 +141,16 @@ const Recipe = () => {
     if (!newIngredients) return;
     await updateIngredients({ recipeId, newIngredients });
     setEditIngredients(false);
+  };
+
+  const handleUpdateInstructions = async () => {
+    // dispatch(updateInstructionsRedux({ id, instructions: value }));
+    const newInstructions = instructionsRef.current.value
+      .split(/\n/)
+      .filter((instruction) => instruction !== "");
+    if (!newInstructions) return;
+    await updateInstructions({ recipeId, newInstructions });
+    setEditInstructions(false);
   };
 
   if (isLoading || !recipe) {
@@ -276,18 +292,22 @@ const Recipe = () => {
                   <li className="flex flex-row flex-wrap max-w-[400px]">
                     <textarea
                       className="mt-4 p-2 border-2 border-blue-400 rounded-md w-full"
+                      ref={instructionsRef}
                       rows={4}
                       cols={40}
                       defaultValue={recipe.instructions.join("\n")}
-                      onChange={(e) => setInstructions(e.target.value)}
+                      onChange={(e) =>
+                        setRecipeInput({
+                          ...recipeInput,
+                          instructions: e.target.value,
+                        })
+                      }
                     />
                     <div className="flex flex-row justify-around gap-2 w-full">
                       <button
                         type="button"
                         className="bg-green-200 shadow-md hover:shadow-none my-2 ml-0 px-3 py-1 rounded-md w-1/2"
-                        onClick={() => {
-                          updateInstructions(recipe.id, instructions);
-                        }}
+                        onClick={handleUpdateInstructions}
                       >
                         Submit
                       </button>
@@ -306,7 +326,7 @@ const Recipe = () => {
             {!editIngredients && user && (
               <button
                 className="opacity-30 hover:opacity-100 mt-20 p-1 border border-red-300 rounded-full text-red-400 active:translate-y-[1px]"
-                onClick={() => handleDelete(recipe.id)}
+                onClick={() => handleDelete(recipeId)}
               >
                 Delete Recipe
               </button>
