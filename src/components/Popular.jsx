@@ -12,11 +12,11 @@ function Popular() {
   const { data: recipes, error, isLoading } = useFetchRecipesQuery();
 
   return (
-    <div className="mx-auto max-w-[90%]">
+    <div className="mx-auto max-w-[60%]">
       {error && <div>Error !!</div>}
       {isLoading && <div className="h-[280px]">Loading ...</div>}
       {recipes && (
-        <div className="flex gap-2 shadow-md border-2 border-emerald-400 border-opacity-80 rounded-xl w-90 overflow-x-scroll snap-x no-wrap no-scrollbar">
+        <div className="flex gap-2 shadow-md border-4 border-amber-50 border-opacity-80 rounded-xl w-90 overflow-x-scroll snap-x no-wrap no-scrollbar">
           {recipes?.map((recipe) => {
             return (
               <Link

@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,16 +20,16 @@
 @font-face {
   font-family: "Indie_Flower";
   src: local("Indie_Flower"),
-    url("../public/assets/fonts/IndieFlower-Regular.ttf") format("truetype");
+    url("../assets/fonts/IndieFlower-Regular.ttf") format("truetype");
 }
 
 body {
   /* display: flex; */
   /* flex-direction: column; */
   /* position: relative; */
-  /* background-image: url("../public/assets/images/background/bgr-image.jpg"); */
+  /* background-image: url("../assets/images/background/bgr-image.jpg"); */
 
-  /* background-color: #cccccc; */
+  background-color: #FFFFBC;
   /* background-color:pink; */
   /* background-blend-mode: color-burn; */
   background-position: center; /* Center the image */
@@ -60,6 +63,13 @@ code {
     monospace;
 }
 
+
+.header-title {
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 /* NAV-LINK */
 
 .nav-link svg {
@@ -190,33 +200,7 @@ margin-bottom: 2px;
   }
 }
 
-footer {
-}
-
-@media (max-width: 640px) {
-  footer {
-    font-size: 1rem;
-  }
-}
-
 .header-text {
-  /* width: fit-content;
-
-  text-align: center;
-  background: linear-gradient(
-    to left,
-    transparent,
-    white,
-    white,
-    white,
-    white,
-    transparent 100%
-  );
-  background-position: 0 100%;
-  background-size: 100% 2px;
-  background-repeat: repeat-x;
-
-  display: flex; */
   font-family: Indie_Flower, serif;
 }
 @media (max-width: 640px) {
@@ -226,17 +210,6 @@ footer {
   }
 }
 
-.hero-container {
-  background-image: url("../public/assets/images/hero/bread.jpg");
-  padding: 0.5rem 0;
-  margin: 0;
-  box-shadow: 3px 3px 10px 3px lightgray;
-}
-
-.recipe-card-img {
-  width: 200px;
-  /* max-height: 100px; */
-}
 
 form {
   margin: 2rem;
@@ -276,9 +249,11 @@ li span {
   margin-right: 4px;
 } */
 
-ol {
+
+ol li {
+  margin-bottom: 8px;
   list-style-type: decimal;
-  /* list-style-position: inside; */
+
 }
 
 li::marker {

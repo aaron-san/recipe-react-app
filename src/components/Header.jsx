@@ -4,7 +4,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 // import { getAuth } from "firebase/auth";
 // import { auth, logout } from "../config/firebase";
 // import { logout, selectUser } from "../features/auth/authSlice";
-import { dispatch, useSelector } from "react-redux";
+// import { dispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -46,43 +46,50 @@ export default function Header() {
   }
 
   return (
-    <div className="flex justify-between hero-container">
-      <div className="flex items-center gap-1 md:gap-2">
-        <button
-          className="hover:opacity-95 my-auto ml-2 w-[40px] h-[40px] text-emerald-50 text-2xl"
-          onClick={() => setShowMenu(true)}
-        >
-          &#x2630;
-        </button>
-        <NavLink to="/">
-          <h2 className="text-shadow text-emerald-50 md:text-[2rem] tracking-wider">
-            Recipe App
-          </h2>
-        </NavLink>
-      </div>
-      {/* Sidebar */}
-      <Sidebar showMenu={showMenu} setShowMenu={setShowMenu} user={user} />
-
-      {/* Header buttons */}
-      <div className="flex flex-wrap">
-        {!user && (
-          <NavLink
-            className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-auto mr-2 px-2 py-1 border border-white rounded-full w-fit h-fit text-slate-50 text-sm text-center active:active:scale-[98%]"
-            to={"/login"}
+    <div
+      className="flex justify-between bg-cover bg-center shadow-lg border-amber-300 border-b-4"
+      style={{ backgroundImage: "url('../assets/images/hero/bread.jpg')" }}
+    >
+      <div className="flex justify-between bg-amber-900/70 w-full">
+        <div className="flex items-center gap-1 md:gap-2 py-2 h-full">
+          <button
+            className="hover:opacity-95 my-auto ml-2 w-[40px] h-[40px] text-emerald-50 text-2xl"
+            onClick={() => setShowMenu(true)}
           >
-            <div>Sign In</div>
+            &#x2630;
+          </button>
+          <NavLink to="/">
+            <div className="py-1 pr-4 pl-2">
+              <div className="text-shadow text-amber-50 md:text-xl text-2xl tracking-wider header-title">
+                Fast Recipes
+              </div>
+            </div>
           </NavLink>
-        )}
-        {user && (
-          <div className="flex flex-wrap justify-end items-center gap-4">
-            <button
-              className="bg-red-500/80 hover:bg-red-500/100 shadow-md mr-4 px-2 py-1 border border-white rounded-full w-fit min-w-[80px] h-fit text-white text-center active:scale-[98%]"
-              onClick={handleLogOut}
+        </div>
+        {/* Sidebar */}
+        <Sidebar showMenu={showMenu} setShowMenu={setShowMenu} user={user} />
+
+        {/* Header buttons */}
+        <div className="flex flex-wrap">
+          {!user && (
+            <NavLink
+              className="bg-emerald-400 hover:bg-emerald-400/90 shadow-md my-auto mr-2 px-2 py-1 border border-white rounded w-fit h-fit text-emerald-900 text-sm text-center active:active:scale-[98%]"
+              to={"/login"}
             >
-              Sign out
-            </button>
-          </div>
-        )}
+              <div>Sign In</div>
+            </NavLink>
+          )}
+          {user && (
+            <div className="flex flex-wrap justify-end items-center gap-4">
+              <button
+                className="bg-red-500/80 hover:bg-red-500/100 shadow-md mr-4 p-1 border border-white rounded w-fit min-w-[80px] h-fit text-white text-sm text-center active:scale-[98%]"
+                onClick={handleLogOut}
+              >
+                Sign out
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

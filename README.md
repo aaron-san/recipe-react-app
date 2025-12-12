@@ -4,7 +4,7 @@ This project uses react redux to manage local state and firebase firestore datab
 
 ## Install Firebase CLI
 
-```shell
+```bash
 npm install -g firebase-tools
 ```
 
@@ -12,7 +12,7 @@ npm install -g firebase-tools
 
 1. Run development server
 
-```shell
+```bash
 npm run dev
 ```
 
@@ -20,7 +20,7 @@ npm run dev
 
 3. Deploy
 
-```shell
+```bash
 git add .
 git commit -m "message"
 git push
@@ -28,7 +28,7 @@ npm run build
 firebase deploy
 ```
 
-```shell
+```bash
 firebase login
 # If there is a login problem, try to reauthorize
 firebase login --reauth
@@ -36,7 +36,7 @@ firebase login --reauth
 
 # Dependencies
 
-```shell
+```bash
 npm i firebase react-redux-firebase redux-firestore redux-thunk
 ```
 

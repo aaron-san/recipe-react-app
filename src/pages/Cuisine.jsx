@@ -10,7 +10,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 import {
   useFetchRecipesQuery,
-  useAddNewRecipeMutation,
+  useAddRecipeMutation,
   useUpdateInstructionsMutation,
 } from "../features/recipes/recipesApi";
 // import { db } from "../config/firebase";
@@ -27,6 +27,7 @@ const Cuisine = () => {
   const { user } = useAuth();
 
   let params = useParams();
+  // console.log(params);
   // const dispatch = useDispatch();
 
   // const recipes = useSelector((state) => state.recipes.value);
@@ -38,14 +39,29 @@ const Cuisine = () => {
     isSuccess,
   } = useFetchRecipesQuery();
 
-  const filteredRecipes = recipes.filter(
-    (recipe) =>
-      Array.isArray(recipe.tags) &&
-      recipe.tags.some((tag) => tag.trim().includes(params.type))
-  );
+const type = params.type.toLowerCase();
+
+const filteredRecipes = recipes.filter(recipe => {
+  const tags = recipe.tags;
+
+  if (!tags) return false;
+  if (Array.isArray(tags)) {
+    return tags.some(tag => String(tag).toLowerCase().includes(type));
+  }
+
+  // If tags is a comma-separated string
+  if (typeof tags === "string") {
+    return tags.toLowerCase().includes(type);
+  }
+
+  return false;
+});
+
+if (isLoading) return <p>Loading...</p>;
+if (error) return <p>Error loading recipes</p>;
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4 mx-auto my-4 max-w-[80vw]">
+    <div className="flex flex-wrap justify-center items-center gap-4 mx-auto my-4 max-w-[80vw] min-h-[calc(100vh-140px)]">
       {filteredRecipes.map((recipe) => {
         return (
           <div

@@ -6,8 +6,10 @@ import Note from "../components/Note";
 // import recipes from "../data/recipes.json";
 import { db } from "../config/firebase";
 import { BiSolidRightArrowAlt } from "react-icons/bi";
-import { IoSaveOutline } from "react-icons/io5";
-import { CiCirclePlus } from "react-icons/ci";
+import Markdown from "react-markdown";
+import AddNote from "./AddNote";
+// import { IoSaveOutline } from "react-icons/io5";
+// import { CiCirclePlus } from "react-icons/ci";
 
 import IngredientItem from "../components/IngredientItem";
 
@@ -44,6 +46,8 @@ const Recipe = () => {
   const instructionsRef = useRef();
   const titleRef = useRef();
   const imageRef = useRef();
+
+  const [addNote, setAddNote] = useState(false);
 
   const {
     data: recipe,
@@ -168,7 +172,7 @@ const Recipe = () => {
               <img
                 src={`/assets/images/${recipe.image}`}
                 alt={recipe.title}
-                className="shadow-xl border-8 border-white rounded-lg w-90 md:min-w-[300px] md:min-h-[300px]"
+                className="shadow-xl border-8 border-white rounded-lg w-60 md:min-w-[200px] h-auto md:min-h-[200px]"
               />
             </div>
             {!editTitle && (
@@ -279,12 +283,18 @@ const Recipe = () => {
             </div>
             <div className="flex justify-between items-center mb-8 lg:w-[400px]">
               <ol>
-                {recipe.instructions &&
-                  recipe.instructions.map((item) => (
-                    <li key={item} className="ml-6 py-1">
-                      <span>{item}</span>
-                    </li>
-                  ))}
+                {
+                  recipe.instructions && (
+                    <div className="ml-6 py-1">
+                      <Markdown>{recipe.instructions.join("\n")}</Markdown>
+                    </div>
+                  )
+                  // recipe.instructions.map((item) => (
+                  //   <li key={item} className="ml-6 py-1">
+                  //     <span>{item}</span>
+                  //   </li>
+                  // ))
+                }
 
                 {/* Edit instructions mode */}
                 {editInstructions && !user && <SignIn />}
@@ -334,6 +344,11 @@ const Recipe = () => {
           </div>
         </div>
         <Note />
+        <AddNote
+          addNote={addNote}
+          setAddNote={setAddNote}
+          // addRecipe={addRecipe}
+        />
       </div>
 
       //   // {recipeData.map((recipe) => {

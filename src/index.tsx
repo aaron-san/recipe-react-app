@@ -31,7 +31,10 @@ import "@fontsource/roboto/700.css";
 import Footer from "./components/Footer";
 import AddNote from "./pages/AddNote";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("Root element not found");
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthProvider>
@@ -41,14 +44,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* {console.log(currentUser)} */}
           {/* <Routes location={location} key={location.pathname}> */}
           <Routes>
-            <Route path="/" exact element={<Home />} />
+            <Route path="/" element={<Home />} />
+            {/* <Route path="/" exact element={<Home />} /> */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/addnote" element={<AddNote />} />
+            {/* <Route path="/addnote" element={<AddNote />} /> */}
             <Route path="/cuisine/:type" element={<Cuisine />} />
             <Route path="/searched/:search" element={<Searched />} />
             <Route path="/recipe/:recipeId" element={<Recipe />} />
+            <Route path="*" element={<div>NOt found</div>} />
           </Routes>
           {/* </AnimatePresence> */}
           {/* <Search />*/}

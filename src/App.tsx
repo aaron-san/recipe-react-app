@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/user/slices/userSlice";
-import { auth, onAuthStateChanged } from "./config/firebase";
+// import { auth, onAuthStateChanged } from "firebase/auth";
+// import { auth, onAuthStateChanged } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase"; // or wherever you initialize Firebase
+
 
 function App() {
   const user = useSelector(selectUser);
@@ -60,7 +64,7 @@ function App() {
   // }, [dispatch]);
 
   // const location = useLocation();
-  return <div className="flex flex-col justify-between min-h-screen ">App</div>;
+  return <div className="flex flex-col justify-between min-h-screen">App</div>;
 }
 
 export default App;
